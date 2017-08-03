@@ -16,4 +16,10 @@ Task checklist
 - [x] Update server.js to start/stop from test module
 - [x] Test
 - [x] Merge and push to GitHub
-- [ ] Set up Travis CI
+- [x] Configure for Travis CI (.travis.yml)
+- [x] Push to GitHub
+- [x] Test with Travis command line: Success!
+- [x] Create Heroku app, update .travis.yml
+- [x] Push to GitHub
+- [x] Watch Travis dashboard: Success
+- [x] Shell app deployed to https://gentle-island-84200.herokuapp.com/
