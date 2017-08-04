@@ -2,6 +2,7 @@
 
 ### (Capstone 2 project)
 
+3.2.4 CI and First Deployment
 Task checklist
 - [x] Create project folder
 - [x] Install express
