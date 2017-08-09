@@ -1,27 +1,106 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 app.use(morgan('common'))
 app.use(express.static('public'));
+const mongoose = require('mongoose');
+const {DATABASE_URL, PORT} = require('./config');
+const {Question} = require('./models/question-model');
+app.use(bodyParser.json());
+const restify = require('restify');
+mongoose.Promise = global.Promise;
 
-// this function starts our server and returns a Promise.
-// In our test code, we need a way of asynchronously starting
-// our server, since we'll be dealing with promises there.
-function runServer() {
-    const port = process.env.PORT || 8080
-    return new Promise((resolve, reject) => {
-        server = app.listen(port, () => {
-            console.log(`App is listening on port ${port}`)
-            resolve(server)
-                }).on('error', err => {
-                reject(err)
-            })
+const logRequest = (req, res, next) => {
+  const logObj = {
+    time: (new Date()).toTimeString(),
+    method: req.method,
+    hostname: req.hostname,
+    path: req.path,
+    "content type": req.get('Content-Type'),
+    query: JSON.stringify(req.query),
+    body: JSON.stringify(req.body)
+  }
+  Object.keys(logObj).forEach(key => console.log(`request ${key}: ${logObj[key]}`));
+  next();
+};
+
+app.all('/', logRequest);
+
+app.get('/questions', (req, res, next) => {
+  // let query = req.query || {};
+  let query = {};
+  let limit = 10;
+  console.log("in GET questions");
+  // console.log('in server.get, req.query: ' + req.query);
+  Question.find(query).limit(limit)
+    .then(questions => {
+      // res.status(status).send(questions);
+      res.send(200, questions)
+      next()
     })
+    .catch(err => {
+      res.status(500).send(err);
+      // res.send(500, err)
+    })
+})
+
+app.get('/count', (req, res, next) => {
+  console.log('in route /count');
+  Question.count()
+    .then(count => {
+      res.send(200, count);
+      next()
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    })
+})
+
+app.get('/categories', (req, res, next) => {
+  console.log("in route /categories");
+  Question.distinct('category')
+    .then(cats => {
+      res.send(200, cats);
+      next()
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    })
+})
+
+app.get('/list', (req, res, next) => {
+  console.log('in questions route');
+  query = req.query || {};
+
+  Question.find(query).then(questions => {
+    res.send(200, questions);
+    next();
+  })
+  .catch(err => {
+    res.send(500, err);
+  });
+});
+
+function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      console.log(`Database open using ${DATABASE_URL}`);
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      });
+    });
+  });
 }
 
-// like `runServer`, this function also needs to return a promise.
-// `server.close` does not return a promise on its own, so we manually
-// create one.
 function closeServer() {
   return new Promise((resolve, reject) => {
     console.log('Closing server')
@@ -36,8 +115,6 @@ function closeServer() {
   })
 }
 
-// if server.js is called directly (aka, with `node server.js`), this block
-// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
 if (require.main === module) {
     runServer().catch(err => console.error(err))
 }

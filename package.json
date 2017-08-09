@@ -10,8 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "morgan": "^1.8.2"
+    "mongoose": "^4.11.5",
+    "morgan": "^1.8.2",
+    "restify": "^5.0.1"
   },
   "devDependencies": {
     "chai": "^4.1.0",
