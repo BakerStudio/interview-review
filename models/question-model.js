@@ -7,7 +7,7 @@ const QuestionSchema = mongoose.Schema({
   qsource: {type: String, required: false},
   asource: {type: String, required: false},
   rating: {type: Number, required: false, default: 0}
-}, {collection: 'questionSample'});
+}, {collection: 'interviews'});
 
 const Question = mongoose.model('Question', QuestionSchema);
 
