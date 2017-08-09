@@ -119,6 +119,8 @@ if (require.main === module) {
     runServer().catch(err => console.error(err))
 }
 
+//  remember to start the db server locally for CI tests
+
 module.exports = {
     app,
     runServer,
