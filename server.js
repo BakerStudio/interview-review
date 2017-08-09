@@ -71,8 +71,7 @@ app.get('/categories', (req, res, next) => {
 
 app.get('/list', (req, res, next) => {
   console.log('in questions route');
-  query = req.query || {};
-
+  query = req.query;
   Question.find(query).then(questions => {
     res.send(200, questions);
     next();
@@ -81,6 +80,19 @@ app.get('/list', (req, res, next) => {
     res.send(500, err);
   });
 });
+
+app.delete('/:id', (req, res, next) => {
+  console.log("in delete route" + req.params.id);
+  var id = req.params.id;
+  Question.findByIdAndRemove(id).then(id => {
+    res.send(200, id);
+    next();
+  })
+  .catch(err => {
+    res.send(500).send(err);
+  })
+})
+
 
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
   return new Promise((resolve, reject) => {
