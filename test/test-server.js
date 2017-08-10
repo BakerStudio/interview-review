@@ -8,7 +8,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Serving home page', function() {
+describe('Testing server', function() {
 
   before(function() {
    return runServer();
@@ -26,13 +26,14 @@ describe('Serving home page', function() {
         res.should.be.html;
       });
   });
-});
 
-  // it('should return status = 200', function(done) {
-  //   chai.request(server)
-  //     .get('/')
-  //     .end(function(err, res) {
-  //       res.should.have.status(200);
-  //       done();
-  //     });
-  // });
+  it('should return count > 0', function() {
+    return chai.request(app)
+      .get('/count')
+      .then(function(res) {
+        res.should.have.status(200);
+        res.should.not.equal(0);
+      });
+  });
+
+});
