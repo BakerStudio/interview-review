@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 app.use(morgan('common'))
 app.use(express.static('public'));
 const mongoose = require('mongoose');
 const {DATABASE_URL, PORT} = require('./config');
 const {Question} = require('./models/question-model');
 app.use(bodyParser.json());
+
 const restify = require('restify');
 mongoose.Promise = global.Promise;
 
@@ -80,6 +82,30 @@ app.get('/list', (req, res, next) => {
     res.send(500, err);
   });
 });
+
+app.post('/question', (req, res, next) => {
+  console.log('in post route');
+  let data = req.body;
+  Question.create(data).then(data => {
+    res.send(201);
+    next()
+  })
+  .catch(err => {
+    res.send(500).send(err);
+  });
+})
+
+// server.post('/users', (req, res, next) => {
+//   let data = req.body || {}
+//   User.create(data)
+//     .then(user => {
+//       res.send(200, user)
+//       next()
+//     })
+//     .catch(err => {
+//       res.send(500, err)
+//     })
+// })
 
 app.delete('/:id', (req, res, next) => {
   console.log("in delete route" + req.params.id);

@@ -18,7 +18,7 @@ describe('Testing server', function() {
    return closeServer();
   });
 
-  it('should return status = 200', function() {
+  it('should return home page', function() {
     return chai.request(app)
       .get('/')
       .then(function(res) {
@@ -27,7 +27,7 @@ describe('Testing server', function() {
       });
   });
 
-  it('should return count > 0', function() {
+  it('should return DB count', function() {
     return chai.request(app)
       .get('/count')
       .then(function(res) {
@@ -35,5 +35,33 @@ describe('Testing server', function() {
         res.should.not.equal(0);
       });
   });
+
+  it('should insert DB record', function() {
+    var record = {
+      "question": "Question 5",
+      "answer": "Answer 5",
+      "category": "Test"
+    }
+    return chai.request(app)
+      .post('/question')
+      .send(record)
+      .then(function(res) {
+        res.should.have.status(201);
+      });
+  })
+
+  // chai.request(server)
+  //             .post('/book')
+  //             .send(book)
+  //             .end((err, res) => {
+  //                 res.should.have.status(200);
+  //                 res.body.should.be.a('object');
+  //                 res.body.should.have.property('errors');
+  //                 res.body.errors.should.have.property('pages');
+  //                 res.body.errors.pages.should.have.property('kind').eql('required');
+  //               done();
+  //             });
+  //       });
+
 
 });
