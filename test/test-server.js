@@ -27,7 +27,7 @@ describe('Testing server', function() {
       });
   });
 
-  it('should return DB count', function() {
+  it('should return DB count (GET)', function() {
     return chai.request(app)
       .get('/count')
       .then(function(res) {
@@ -36,11 +36,11 @@ describe('Testing server', function() {
       });
   });
 
-  it('should insert DB record', function() {
+  it('should insert DB record (POST)', function() {
     var record = {
-      "question": "Question 5",
-      "answer": "Answer 5",
-      "category": "Test"
+      "question": "Question 6",
+      "answer": "Answer 6",
+      "category": "Test6"
     }
     return chai.request(app)
       .post('/question')
