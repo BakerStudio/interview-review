@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const Promise = require('bluebird');
 app.use(morgan(':date[iso] :url :method :status :res[content-length] - :response-time'))
 app.use(express.static('public'));
 const mongoose = require('mongoose');
@@ -73,34 +74,25 @@ app.get('/categories', (req, res, next) => {
 })
 
 app.get('/category-count', (req, res, next) => {
-  var array = [];
+  var catNames = [];
   var catCount = [];
   Question.distinct('category')
     .then(cats => {
-      // res.send(200, cats);
-      array = cats;
-      console.log("saved array " + array);
-      // console.log("category array " + cats);
-      // console.log("array size = " + cats.length);
-      for (var i = 0; i < array.length; i++) {
-        console.log("checking " + array[i]);
-        Question.find(array[i]).count()
-          // Question.find({category: ${cats[i]}}).count();
-          .then(n => {
-            console.log("i = " + i);
-            catCount[i] = n;
-            console.log(array[i] + " = " + n);
-          })
+      catNames = cats;
+      for (var i = 0; i < catNames.length; i++) {
+        catCount[i] = Question.find({
+          category: catNames[i]
+        }).count();
       }
-      console.log("catCount = " + catCount);
-      res.status(200).send(array);
-      next()
+      Promise.all(catCount).then(responses => {
+        res.status(200).send(responses)
+        next()
+      })
     })
     .catch(err => {
       res.status(500).send(err);
     })
 })
-
 
 app.get('/list', (req, res, next) => {
   query = req.query;
