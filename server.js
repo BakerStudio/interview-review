@@ -39,7 +39,7 @@ mongoose.Promise = global.Promise;
 app.get('/questions', (req, res, next) => {
   // let query = req.query || {};
   let query = {};
-  let limit = 10;
+  let limit = 20;
   Question.find(query).limit(limit)
     .then(questions => {
       // res.status(status).send(questions);
@@ -91,7 +91,7 @@ app.get('/category-count', (req, res, next) => {
     })
     .catch(err => {
       res.status(500).send(err);
-    })
+  })
 })
 
 app.get('/list', (req, res, next) => {
@@ -105,14 +105,14 @@ app.get('/list', (req, res, next) => {
     });
 });
 
-app.post('/question', (req, res, next) => {
+app.post('/post', (req, res, next) => {
   let data = req.body;
-  Question.create(data).then(data => {
-      res.status(201);
-      next()
+  Question.create(req.body).then(data => {
+      res.status(201).json(req.body);
+      next();
     })
     .catch(err => {
-      res.status(500).send(err);
+      res.status(500, err);
     });
 })
 

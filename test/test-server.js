@@ -38,12 +38,12 @@ describe('Testing server', function() {
 
   it('should insert DB record (POST)', function() {
     var record = {
-      "question": "Question 6",
-      "answer": "Answer 6",
-      "category": "Test6"
+      "question": "Question 100",
+      "answer": "Answer 100",
+      "category": "Test100"
     }
     return chai.request(app)
-      .post('/question')
+      .post('/post')
       .send(record)
       .then(function(res) {
         res.should.have.status(201);
