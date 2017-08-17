@@ -34,7 +34,7 @@ function questionsList(data) {
 $(function() {
   'use strict';
   console.log("starting app...");
-  switchEndpoints('local');
+  switchEndpoints('remote');
 
   // simple listing of all the questions, limited by limit set in server.js
 
