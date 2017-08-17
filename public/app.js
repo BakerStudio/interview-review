@@ -1,7 +1,6 @@
-const QUESTIONS_ENDPOINT;
-const CATEGORIES_ENDPOINT;
-const CATEGORY_COUNT_ENDPOINT;
-// let QUESTIONS_URL = 'gentle-island-84200.herokuapp.com/questions';
+let QUESTIONS_ENDPOINT;
+let CATEGORIES_ENDPOINT;
+let CATEGORY_COUNT_ENDPOINT;
 
 function switchEndpoints(location) {
   if (location === "local") {
@@ -39,6 +38,6 @@ $(function() {
 
   // simple listing of all the questions, limited by limit set in server.js
 
-  $.getJSON(QUESTIONS_URL,questionsList);
+  $.getJSON(QUESTIONS_ENDPOINT,questionsList);
 
 })
