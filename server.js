@@ -51,6 +51,23 @@ app.get('/questions', (req, res, next) => {
     })
 })
 
+app.get('/questions/:cat', (req, res, next) => {
+  console.log("in /questions/cat endpoint" + req.params.cat);
+  // let query = req.query || {};
+  let cat = req.params.cat;
+  // let query = {};
+  let limit = 10;
+  Question.find({'category': cat}).limit(limit)
+    .then(questions => {
+      // res.status(status).send(questions);
+      res.status(200).send(questions);
+      next()
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    })
+})
+
 app.get('/count', (req, res, next) => {
   Question.count()
     .then(count => {
