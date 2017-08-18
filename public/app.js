@@ -10,9 +10,9 @@ function switchEndpoints(location) {
     CATEGORY_COUNT_ENDPOINT = 'http://localhost:8080/category-count';
   } else {
     console.log("Setting endpoints to remote URLs");
-    QUESTIONS_ENDPOINT = 'http://gentle-island-84200.herokuapp.com/questions';
-    CATEGORIES_ENDPOINT = 'http://gentle-island-84200.herokuapp.com/categories';
-    CATEGORY_COUNT_ENDPOINT = 'http://gentle-island-84200.herokuapp.com/category-count';
+    QUESTIONS_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions';
+    CATEGORIES_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/categories';
+    CATEGORY_COUNT_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/category-count';
   }
 }
 
