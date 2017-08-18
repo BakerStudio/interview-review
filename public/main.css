@@ -3,3 +3,15 @@
        "Helvetica Neue Light", "Lucida Grande", Sans-Serif;
   background-color: cornflowerblue;
 }
+
+.content {
+  text-align: left;
+  font-size: 10px;
+  color: black;
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /*transition: background-color 0.33s, color 0.33s, font-size 0.33s,*/
+       /*margin-left 0.33s, margin-right 0.33s, padding-left 0.33s;*/
+}
