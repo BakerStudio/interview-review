@@ -38,9 +38,9 @@ describe('Testing server', function() {
 
   it('should insert DB record (POST)', function() {
     var record = {
-      "question": "Question 100",
-      "answer": "Answer 100",
-      "category": "Test100"
+      "question": "Question-Travis Test",
+      "answer": "Of course it will work!",
+      "category": "Travis"
     }
     return chai.request(app)
       .post('/post')

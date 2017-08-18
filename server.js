@@ -52,14 +52,10 @@ app.get('/questions', (req, res, next) => {
 })
 
 app.get('/questions/:cat', (req, res, next) => {
-  console.log("in /questions/cat endpoint" + req.params.cat);
-  // let query = req.query || {};
   let cat = req.params.cat;
-  // let query = {};
   let limit = 10;
   Question.find({'category': cat}).limit(limit)
     .then(questions => {
-      // res.status(status).send(questions);
       res.status(200).send(questions);
       next()
     })
@@ -167,7 +163,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
       }
       console.log(`Database open using ${DATABASE_URL}`);
       server = app.listen(port, () => {
-          console.log(`Your app is listening on port ${port}`);
+          console.log(`App is listening on port ${port}`);
           resolve();
         })
         .on('error', err => {

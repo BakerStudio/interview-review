@@ -32,11 +32,11 @@ function listCategories(data) {
   function categoryCount(catCountData) {
     text = '<p><h2>Select a category:</h2></p>';
     for (var i=0; i < data.length; i++) {
-      text = text + '<p><h3>' + data[i] + ' (' + catCountData[i];
+      text = text + '<p><h3><a href="">' + data[i] + ' (' + catCountData[i];
       if (catCountData[i] > 1) {
-        text = text + ' questions)</h3></p>';
+        text = text + ' questions)</a></h3></p>';
       } else {
-        text = text + ' question)</h3></p>';
+        text = text + ' question)</a></h3></p>';
       }
     }
     $('.content').html(text);
@@ -54,7 +54,7 @@ function listCategories(data) {
 $(function() {
   'use strict';
   console.log("starting app...");
-  switchEndpoints('remote');
+  switchEndpoints('local');
 
   $.getJSON(CATEGORIES_ENDPOINT, listCategories);
 
