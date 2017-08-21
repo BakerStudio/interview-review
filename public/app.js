@@ -23,9 +23,7 @@ function switchEndpoints(location) {
 function displayQuestions(data) {
   var text = '';
 
-  console.log("in displayQuestions function");
   for (var i = 0; i < data.length; i++) {
-    console.log(data[i]);
     text = text + '<p id ="' + i + '"> ' + (i + 1) + '. Q:  ' + data[i].question + '</p>';
     text = text + '<p>A:  ' + data[i].answer + '</p>';
     }
@@ -56,7 +54,7 @@ function displayCategories(data) {
 $(function() {
   'use strict';
   console.log("starting app...");
-  switchEndpoints('local');
+  switchEndpoints('remote');
 
   $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
 
