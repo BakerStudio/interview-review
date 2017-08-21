@@ -1,61 +1,71 @@
 let QUESTIONS_ENDPOINT;
+let QUESTIONS_CATEGORY_ENDPOINT;
 let CATEGORIES_ENDPOINT;
 let CATEGORY_COUNT_ENDPOINT;
+let categoryArray = [];
 
 function switchEndpoints(location) {
   if (location === "local") {
-    console.log("Setting endpoints to local URLs");
+    console.log("Setting endpoints to use local URLs");
     QUESTIONS_ENDPOINT = 'http://localhost:8080/questions';
+    QUESTIONS_CATEGORY_ENDPOINT = 'http://localhost:8080/questions/';
     CATEGORIES_ENDPOINT = 'http://localhost:8080/categories';
     CATEGORY_COUNT_ENDPOINT = 'http://localhost:8080/category-count';
   } else {
-    console.log("Setting endpoints to remote URLs");
+    console.log("Setting endpoints to use remote URLs");
     QUESTIONS_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions';
+    QUESTIONS_CATEGORY_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions/';
     CATEGORIES_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/categories';
     CATEGORY_COUNT_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/category-count';
   }
 }
 
-function questionsList(data) {
-
+function displayQuestions(data) {
   var text = '';
 
-  console.log("in questionsList function");
+  console.log("in displayQuestions function");
   for (var i = 0; i < data.length; i++) {
     console.log(data[i]);
-  }
+    text = text + '<p id ="' + i + '"> ' + (i + 1) + '. Q:  ' + data[i].question + '</p>';
+    text = text + '<p>A:  ' + data[i].answer + '</p>';
+    }
+  $('.main').html(text);
 }
 
-function listCategories(data) {
+function displayCategories(data) {
   var text = '';
+  categoryArray = data;
 
   function categoryCount(catCountData) {
     text = '<p><h2>Select a category:</h2></p>';
     for (var i=0; i < data.length; i++) {
-      text = text + '<p><h3><a href="">' + data[i] + ' (' + catCountData[i];
+      text = text + '<p id="' + i + '">' + data[i] + ' (' + catCountData[i];
       if (catCountData[i] > 1) {
-        text = text + ' questions)</a></h3></p>';
+        text = text + ' questions)</p>';
       } else {
-        text = text + ' question)</a></h3></p>';
+        text = text + ' question)</p>';
       }
     }
-    $('.content').html(text);
+    $('.nav').html(text);
   }
+
   $.getJSON(CATEGORY_COUNT_ENDPOINT, categoryCount);
 
-  // text = '<p><h2>Question categories - select one:</h2></p>';
-  // for (var i=0; i < data.length; i++) {
-  //   text = text + '<p>' + data[i] + '</p>';
-  // }
-  // $('.content').html(text);
 }
-
 
 $(function() {
   'use strict';
   console.log("starting app...");
   switchEndpoints('local');
 
-  $.getJSON(CATEGORIES_ENDPOINT, listCategories);
+  $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
+
+  // Register event handler for clicking on a category
+  $(".nav").on('click', event => {
+    event.preventDefault();
+    console.log("index clicked " + event.target.id + " " + categoryArray[event.target.id]);
+    $.getJSON(QUESTIONS_CATEGORY_ENDPOINT + categoryArray[event.target.id],
+       displayQuestions);
+  })
 
 })
