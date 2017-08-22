@@ -129,17 +129,17 @@ app.post('/post', (req, res, next) => {
     });
 })
 
-// server.post('/users', (req, res, next) => {
-//   let data = req.body || {}
-//   User.create(data)
-//     .then(user => {
-//       res.send(200, user)
-//       next()
-//     })
-//     .catch(err => {
-//       res.send(500, err)
-//     })
-// })
+app.post('/:id', (req, res, next) => {
+  let id = req.params.id;
+  console.log("in app.put route, id= " + id);
+  Question.findByIdAndUpdate(id, req.body).then(questions => {
+    res.status(201).send(questions);
+    next();
+  })
+  .catch(err => {
+    res.status(500).send(err);
+  });
+})
 
 app.delete('/:id', (req, res, next) => {
   var id = req.params.id;
@@ -151,7 +151,6 @@ app.delete('/:id', (req, res, next) => {
       res.status(500).send(err);
     })
 })
-
 
 function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
