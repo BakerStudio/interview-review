@@ -35,6 +35,8 @@ function displayQuestions(data) {
     text = text + '<p>A:  ' + data[i].answer + '</p>';
     text = text + '<p class="del-button" id="' + i +
       '">Delete</p>';
+    text = text + '<p class="change-button" id="' + i +
+        '">Update</p>';
     text = text + '</div>';
     }
   $('.main').html(text);
@@ -45,7 +47,7 @@ function displayCategories(data) {
   categoryArray = data;
 
   function categoryCount(catCountData) {
-    text = '<p><h2>Select a category:</h2></p>';
+    text = '<p><h2>Select category</h2></p>';
     for (var i=0; i < data.length; i++) {
       text = text + '<p id="' + i + '">' + data[i] +
         ' (' + catCountData[i];
@@ -63,7 +65,7 @@ function displayCategories(data) {
 
 $(function() {
   'use strict';
-  switchEndpoints('remote');
+  switchEndpoints('local');
 
   $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
 
