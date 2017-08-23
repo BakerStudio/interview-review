@@ -33,11 +33,11 @@ function displayQuestions(data) {
     text = text + '<p id ="' + i + '"> ' + (i + 1) +
       '. Q:  ' + data[i].question + '</p>';
     text = text + '<p>A:  ' + data[i].answer + '</p>';
-    text = text + '<p class="del-button" id="' + i +
-      '">Delete</p>';
-    text = text + '<p class="change-button" id="' + i +
-        '">Update</p>';
-    text = text + '</div>';
+    text = text + '<button class="del-button" id="' + i +
+      '">Delete</button>';
+    text = text + '<button class="change-button" id="' + i +
+        '">Update</button></div>';
+    // text = text + '';
     }
   $('.main').html(text);
 }
@@ -65,7 +65,7 @@ function displayCategories(data) {
 
 $(function() {
   'use strict';
-  switchEndpoints('local');
+  switchEndpoints('remote');
 
   $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
 
@@ -98,5 +98,14 @@ $(function() {
         }
     });
   })
+
+  //  Register event hander for clicking on a
+  //  questions's update button
+
+  $('.main').on('click', '.change-button', event => {
+    event.preventDefault();
+    console.log('question change button ' + event.target.id);
+    window.open("editor.html","Edit","left=50,top=50,width=700,height=350,status=no,toolbar=no, menubar=no");
+  });
 
 })
