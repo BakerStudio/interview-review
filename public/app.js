@@ -7,21 +7,27 @@ let categoryArray = [];
 let questionsArray = [];
 
 function switchEndpoints(location) {
-  if (location === "local") {
-    console.log("Setting endpoints to use local URLs");
-    QUESTIONS_ENDPOINT = 'http://localhost:8080/questions';
-    QUESTIONS_CATEGORY_ENDPOINT = 'http://localhost:8080/questions/';
-    QUESTIONS_DELETE_ENDPOINT = 'http://localhost:8080/';
-    CATEGORIES_ENDPOINT = 'http://localhost:8080/categories';
-    CATEGORY_COUNT_ENDPOINT = 'http://localhost:8080/category-count';
-  } else {
-    console.log("Setting endpoints to use remote URLs");
-    QUESTIONS_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions';
-    QUESTIONS_CATEGORY_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions/';
-    QUESTIONS_DELETE_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/';
-    CATEGORIES_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/categories';
-    CATEGORY_COUNT_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/category-count';
-  }
+  QUESTIONS_ENDPOINT = '/questions';
+  QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
+  QUESTIONS_DELETE_ENDPOINT = '/';
+  CATEGORIES_ENDPOINT = '/categories';
+  CATEGORY_COUNT_ENDPOINT = '/category-count';
+
+  // if (location === "local") {
+  //   console.log("Setting endpoints to use local URLs");
+  //   QUESTIONS_ENDPOINT = 'http://localhost:8080/questions';
+  //   QUESTIONS_CATEGORY_ENDPOINT = 'http://localhost:8080/questions/';
+  //   QUESTIONS_DELETE_ENDPOINT = 'http://localhost:8080/';
+  //   CATEGORIES_ENDPOINT = 'http://localhost:8080/categories';
+  //   CATEGORY_COUNT_ENDPOINT = 'http://localhost:8080/category-count';
+  // } else {
+  //   console.log("Setting endpoints to use remote URLs");
+  //   QUESTIONS_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions';
+  //   QUESTIONS_CATEGORY_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions/';
+  //   QUESTIONS_DELETE_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/';
+  //   CATEGORIES_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/categories';
+  //   CATEGORY_COUNT_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/category-count';
+  // }
 }
 
 function displayQuestions(data) {
