@@ -63,6 +63,11 @@ function displayCategories(data) {
   $.getJSON(CATEGORY_COUNT_ENDPOINT, categoryCount);
 }
 
+function displayModal(id) {
+  console.log("in displayModal, id = " + id);
+}
+
+
 $(function() {
   'use strict';
   switchEndpoints('local');
@@ -105,7 +110,9 @@ $(function() {
   $('.main').on('click', '.change-button', event => {
     event.preventDefault();
     console.log('question change button ' + event.target.id);
-    window.open("editor.html","Edit","left=50,top=50,width=700,height=350,status=no,toolbar=no, menubar=no");
+    // window.open("editor.html","Edit","left=50,top=50,width=700,height=350,status=no,toolbar=no, menubar=no");
+    displayModal(event.target.id);
+
   });
 
 })
