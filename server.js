@@ -15,9 +15,6 @@ const {
   Question
   } = require('./models/question-model');
 app.use(bodyParser.json());
-
-
-// const restify = require('restify');
 mongoose.Promise = global.Promise;
 
 // const logRequest = (req, res, next) => {
@@ -186,6 +183,13 @@ function closeServer() {
     })
   })
 }
+
+process.on('SIGINT', function() {
+  console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+  mongoose.disconnect();
+  closeServer();
+  process.exit();
+})
 
 if (require.main === module) {
   runServer().catch(err => console.error(err))

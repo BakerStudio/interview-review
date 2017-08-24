@@ -14,7 +14,7 @@ body {
 
 .question-container, .answer-container {
   margin: 20px 20px 20px 20px;
-  padding: 20px 20px 20px 20px;
+  padding: 5px 20px 20px 5px;
 }
 
 .button-container {

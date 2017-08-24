@@ -65,7 +65,7 @@ function displayCategories(data) {
 
 $(function() {
   'use strict';
-  switchEndpoints('remote');
+  switchEndpoints('local');
 
   $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
 
