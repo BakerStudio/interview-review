@@ -2,25 +2,25 @@
 
 ### API Documentation
 
-| HTTP |        | Description                                               |
+| HTTP |Endpoint| Description                                               |
 |:----:|:-------|:----------------------------------------------------------|
 | GET  | /count | Return a count of the number of documents in the database |
 
 Example
-'''
+```
 localhost:8080/count
-'''
+```
 
-| HTTP |        | Description                                               |
+| HTTP |Endpoint| Description                                               |
 |:----:|:-------|:----------------------------------------------------------|
 |GET   |/questions|List all the documents in the database. The limit of returned documents is set to 20.|
 
 Example
-'''
+```
 localhost:8080/questions
-'''
+```
 Response body
-'''
+```
 [
     {
         "_id": "599cbcb0a6af4a0721fcd9d0",
@@ -39,9 +39,9 @@ Response body
         "asource": "http://helephant.com/2008/08/23/javascript-anonymous-functions",
         "rating": "0",
         "answer": "Anonymous functions aren’t given a name in the same way as normal functions. Not having to set a name for an anonymous function is just a convenience."
-    }
+    }, ...
 ]
-'''
+```
 
 
 
