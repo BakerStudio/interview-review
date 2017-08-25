@@ -15,11 +15,11 @@ function displayQuestions(data) {
     text = text + '<p id ="' + i + '"> ' + (i + 1) +
       '. Q:  ' + data[i].question + '</p>';
     text = text + '<p>A:  ' + data[i].answer + '</p>';
+    text = text + '<p>Rating: ' + data[i].rating + '</p>';
     text = text + '<button class="del-button" id="' + i +
       '">Delete</button>';
     text = text + '<button class="change-button" id="' + i +
-        '">Update</button></div>';
-    // text = text + '';
+        '">Edit</button></div>';
     }
   $('.main').html(text);
 }
@@ -29,7 +29,7 @@ function displayCategories(data) {
   categoryArray = data;
 
   function categoryCount(catCountData) {
-    text = '<p><h2>Select category</h2></p>';
+    text = '<p><h4>Select category</h4></p>';
     for (var i=0; i < data.length; i++) {
       text = text + '<p id="' + i + '">' + data[i] +
         ' (' + catCountData[i];
@@ -46,15 +46,30 @@ function displayCategories(data) {
 }
 
 function displayModal(id) {
-  console.log("in displayModal, id = " + id);
-  
-  var title = questionsArray[id].category;
+  var title = 'Topic: ' + questionsArray[id].category;
   $('.modal-title').html(title);
 
-  var text = 'Question: ' + questionsArray[id].question +
-    '<br><br>Answer: ' + questionsArray[id].answer +
-    '<br><br>Category: ' + questionsArray[id].category +
-    '<br><br>Rating: ' + questionsArray[id].rating;
+  var text = '<div class="form-group">' +
+      '<label for="question" class="control-label">Question</label>' +
+      '<textarea name="question" class="form-control" rows="3">' +
+      questionsArray[id].question + '</textarea></div>' +
+    '<div class="form-group">' +
+      '<label for="answer" class="control-label">Answer</label>' +
+      '<textarea name="answer" class="form-control" rows="3">' +
+      questionsArray[id].answer + '</textarea></div>' +
+    '<div class="form-group">' +
+      '<label for="category" class="control-label">Category</label>' +
+      '<input type="text" name="category" class="form-control" placeholder=' +
+      questionsArray[id].category + '></div>' +
+    '<div class="form-group">' +
+      '<label for="rating" class="control-label">Rating</label>' +
+      '<select name="rating" size="1">' +
+      '<option selected>Select one...</option>' +
+      '<option value="beginner">beginner</option>' +
+      '<option value="intermediate">intermediate</option>' +
+      '<option value="advanced">advanced</option>' +
+      '<option value="guru-level">guru-level</option>' +
+      '</select></div>';
 
   $('.modal-body').html(text);
 
@@ -84,13 +99,13 @@ $(function() {
 
   $('.main').on('click', '.del-button', event => {
     event.preventDefault();
-    console.log('question delete ' + event.target.id +
-        questionsArray[event.target.id]._id);
+    // console.log('question delete ' + event.target.id +
+        // questionsArray[event.target.id]._id);
     $.ajax({
         url: QUESTIONS_DELETE_ENDPOINT + questionsArray[event.target.id]._id,
         type: 'DELETE',
         success: function(result) {
-            console.log("Document deleted");
+            // console.log("Document deleted");
             $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
             var text = '';
             $('.main').html(text);
@@ -103,10 +118,10 @@ $(function() {
 
   $('.main').on('click', '.change-button', event => {
     event.preventDefault();
-    console.log('question change button ' + event.target.id);
+    // console.log('question change button ' + event.target.id);
     // window.open("editor.html","Edit","left=50,top=50,width=700,height=350,status=no,toolbar=no, menubar=no");
     displayModal(event.target.id);
-    $('#policy').modal('show');
+    // $('#policy').modal('show');
 
   });
 

@@ -67,8 +67,17 @@ img {
 
 div.question-box {
   background-color: white;
+  margin-bottom: 15px;
 }
 
 div.question-box:hover {
   background-color: #d9d9d9; /* lightgray */
+}
+
+.form-group {
+  margin-top: 15px;
+}
+
+.form-group label {
+  margin-right: 10px;
 }
