@@ -1,6 +1,56 @@
 # Interview Review
 
-### (Capstone 2 project)
+### API Documentation
+
+| HTTP |        | Description                                               |
+|:----:|:-------|:----------------------------------------------------------|
+| GET  | /count | Return a count of the number of documents in the database |
+
+Example
+'''
+localhost:8080/count
+'''
+
+| HTTP |        | Description                                               |
+|:----:|:-------|:----------------------------------------------------------|
+|GET   |/questions|List all the documents in the database. The limit of returned documents is set to 20.|
+
+Example
+'''
+localhost:8080/questions
+'''
+Response body
+'''
+[
+    {
+        "_id": "599cbcb0a6af4a0721fcd9d0",
+        "question": "What does * { box-sizing: border-box; } do? What are its advantages?",
+        "category": "CSS",
+        "qsource": "https://github.com/h5bp/Front-end-Developer-Interview-Questions",
+        "asource": "https://www.w3schools.com/css/css3_box-sizing.asp",
+        "rating": "0",
+        "answer": "The CSS3 box-sizing property allows the padding and border sizes to be included in an elements total width and height. It simplifies accurate layout."
+    },
+    {
+        "_id": "599cbcb0a6af4a0721fcd9d2",
+        "question": "What is a typical use case for anonymous functions?",
+        "category": "JS",
+        "qsource": "https://github.com/h5bp/Front-end-Developer-Interview-Questions",
+        "asource": "http://helephant.com/2008/08/23/javascript-anonymous-functions",
+        "rating": "0",
+        "answer": "Anonymous functions aren’t given a name in the same way as normal functions. Not having to set a name for an anonymous function is just a convenience."
+    }
+]
+'''
+
+
+
+GET  /questions/:category  List all the documents within the specified category
+'''
+localhost:8080/HTML
+'''
+
+
 
 3.2.4 CI and First Deployment
 Task checklist
