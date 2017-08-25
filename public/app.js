@@ -1,28 +1,10 @@
-let QUESTIONS_ENDPOINT;
-let QUESTIONS_CATEGORY_ENDPOINT;
-let QUESTIONS_DELETE_ENDPOINT;
-let CATEGORIES_ENDPOINT;
-let CATEGORY_COUNT_ENDPOINT;
+let QUESTIONS_ENDPOINT = '/questions';
+let QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
+let QUESTIONS_DELETE_ENDPOINT = '/';
+let CATEGORIES_ENDPOINT = '/categories';
+let CATEGORY_COUNT_ENDPOINT = '/category-count';
 let categoryArray = [];
 let questionsArray = [];
-
-function switchEndpoints(location) {
-  if (location === "local") {
-    console.log("Setting endpoints to use local URLs");
-    QUESTIONS_ENDPOINT = 'http://localhost:8080/questions';
-    QUESTIONS_CATEGORY_ENDPOINT = 'http://localhost:8080/questions/';
-    QUESTIONS_DELETE_ENDPOINT = 'http://localhost:8080/';
-    CATEGORIES_ENDPOINT = 'http://localhost:8080/categories';
-    CATEGORY_COUNT_ENDPOINT = 'http://localhost:8080/category-count';
-  } else {
-    console.log("Setting endpoints to use remote URLs");
-    QUESTIONS_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions';
-    QUESTIONS_CATEGORY_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions/';
-    QUESTIONS_DELETE_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/';
-    CATEGORIES_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/categories';
-    CATEGORY_COUNT_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/category-count';
-  }
-}
 
 function displayQuestions(data) {
   var text = '';
@@ -65,12 +47,24 @@ function displayCategories(data) {
 
 function displayModal(id) {
   console.log("in displayModal, id = " + id);
-}
+  
+  var title = questionsArray[id].category;
+  $('.modal-title').html(title);
 
+  var text = 'Question: ' + questionsArray[id].question +
+    '<br><br>Answer: ' + questionsArray[id].answer +
+    '<br><br>Category: ' + questionsArray[id].category +
+    '<br><br>Rating: ' + questionsArray[id].rating;
+
+  $('.modal-body').html(text);
+
+  $('#editor').modal();
+}
 
 $(function() {
   'use strict';
-  switchEndpoints('local');
+
+  //  Display the categories in the left-hand nav column
 
   $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
 
@@ -112,6 +106,7 @@ $(function() {
     console.log('question change button ' + event.target.id);
     // window.open("editor.html","Edit","left=50,top=50,width=700,height=350,status=no,toolbar=no, menubar=no");
     displayModal(event.target.id);
+    $('#policy').modal('show');
 
   });
 
