@@ -1,4 +1,4 @@
-# Interview Review
+## Interview Review
 
 ### API Documentation
 
@@ -10,6 +10,11 @@ Example
 ```
 localhost:8080/count
 ```
+Response body
+```
+9
+```
+---
 
 | HTTP |Endpoint| Description                                               |
 |:----:|:-------|:----------------------------------------------------------|
@@ -43,12 +48,16 @@ Response body
 ]
 ```
 
+---
 
-
-GET  /questions/:category  List all the documents within the specified category
-'''
+| HTTP |Endpoint| Description                                               |
+|:----:|:-------|:----------------------------------------------------------|
+|GET | /questions/:category | List all the documents within the specified category|
+Example
+```
 localhost:8080/HTML
-'''
+```
+Response body
 
 
 
