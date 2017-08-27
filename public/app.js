@@ -38,8 +38,9 @@ function displayQuestions(data) {
 
   for (var i = 0; i < data.length; i++) {
     text = text + '<div class="question-box">';
-    text = text + '<p id ="' + i + '"> ' + (i + 1) +
-      '. Q:  ' + data[i].question + '</p>';
+    text = text + '<p id ="' + i + '"><b>' + (i + 1) + '. '
+      + data[i].category + '</b></p>';
+    text = text + '<p>Q;  ' + data[i].question + '</p>';
     text = text + '<p>A:  ' + data[i].answer + '</p>';
     text = text + '<p>Rating: ' + data[i].rating + '</p>';
     text = text + '<button class="del-button" id="' + i +
@@ -134,15 +135,15 @@ if (quTrimmed == '' ||
       contentType: 'application/json',
       data: strQuestion,
       success: function(result) {
-          console.log("Document updated");
-          $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
+          // console.log("Document updated");
           var text = '';
           // $('.modal-dialog').html('');
-          // $('.modal-body').html(text);
+          $('.modal-body').html(text);
           // $('.modal-title').remove();
           $('.modal-title').html("");
           // $('.modal-body').remove();
           $('.main').html(text);
+          $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
       }
   });
 };
