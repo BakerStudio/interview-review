@@ -3,6 +3,8 @@ let QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
 let QUESTIONS_DELETE_ENDPOINT = '/';
 let CATEGORIES_ENDPOINT = '/categories';
 let CATEGORY_COUNT_ENDPOINT = '/category-count';
+let QUESTION_UPDATE_ENDPOINT = '/';
+let QUESTION_CREATE_ENDPOINT = '/post';
 let categoryArray = [];
 let questionsArray = [];
 
@@ -49,17 +51,18 @@ function displayModal(id) {
   var title = 'Topic: ' + questionsArray[id].category;
   $('.modal-title').html(title);
 
-  var text = '<div class="form-group">' +
+  var text =
+      '<div class="form-group dbQuestion" data-mongo-id="' + questionsArray[id]._id + '">' +
       '<label for="question" class="control-label">Question</label>' +
-      '<textarea name="question" class="form-control" rows="3">' +
+      '<textarea spellcheck="true" name="question" class="form-control" rows="3">' +
       questionsArray[id].question + '</textarea></div>' +
     '<div class="form-group">' +
       '<label for="answer" class="control-label">Answer</label>' +
-      '<textarea name="answer" class="form-control" rows="3">' +
+      '<textarea spellcheck="true" name="answer" class="form-control" rows="3">' +
       questionsArray[id].answer + '</textarea></div>' +
     '<div class="form-group">' +
       '<label for="category" class="control-label">Category</label>' +
-      '<input type="text" name="category" class="form-control" placeholder=' +
+      '<input type="text" spellcheck="true" name="category" class="form-control" placeholder=' +
       questionsArray[id].category + '></div>' +
     '<div class="form-group">' +
       '<label for="rating" class="control-label">Rating</label>' +
@@ -69,12 +72,56 @@ function displayModal(id) {
       '<option value="intermediate">intermediate</option>' +
       '<option value="advanced">advanced</option>' +
       '<option value="guru-level">guru-level</option>' +
-      '</select></div>';
+      '</select></div></div>';
 
   $('.modal-body').html(text);
 
   $('#editor').modal();
 }
+
+function formatAndPost(mongoId, target) {
+
+var qu = target[0].value;
+var quTrimmed = qu.trim();
+var an = target[1].value;
+var anTrimmed = an.trim();
+var cat = target[2].value;
+var catTrimmed = cat.trim();
+
+if (quTrimmed == '' ||
+  anTrimmed == '' ||
+  catTrimmed == '') {
+  var text = "The question, answer and category fields are required. \nPlease correct and resubmit.";
+  $('.modal-title').html(text);
+  return;
+}
+   var updatedQuestion = {
+        "question": quTrimmed,
+        "answer": anTrimmed,
+        "category": catTrimmed,
+        "rating": target[3].value
+     };
+   var strQuestion = JSON.stringify(updatedQuestion);
+
+  $.ajax({
+      url: QUESTION_UPDATE_ENDPOINT + mongoId,
+      type: "POST",
+      dataType: 'json',
+      contentType: 'application/json',
+      data: strQuestion,
+      success: function(result) {
+          console.log("Document updated");
+          $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
+          var text = '';
+          // $('.modal-dialog').html('');
+          // $('.modal-body').html(text);
+          // $('.modal-title').remove();
+          $('.modal-title').html("");
+          // $('.modal-body').remove();
+          $('.main').html(text);
+      }
+  });
+};
 
 $(function() {
   'use strict';
@@ -121,10 +168,14 @@ $(function() {
     // console.log('question change button ' + event.target.id);
     // window.open("editor.html","Edit","left=50,top=50,width=700,height=350,status=no,toolbar=no, menubar=no");
     displayModal(event.target.id);
-    // $('#policy').modal('show');
 
   });
 
-  $("#formId").submit(function() { alert('yoooo') });
+  // $("#formId").submit(function() { alert('yoooo') });
+  $('#formId').submit(event => {
+    event.preventDefault();
+    var mongoNumber = $('.dbQuestion').data('mongoId');
+    formatAndPost(mongoNumber, event.target);
+  })
 
 })

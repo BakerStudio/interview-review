@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const Promise = require('bluebird');
+// const multer = require('multer')
 app.use(morgan(':date[iso] :url :method :status :res[content-length] - :response-time'))
 app.use(express.static('public'));
 const mongoose = require('mongoose');
@@ -15,6 +16,7 @@ const {
   Question
   } = require('./models/question-model');
 app.use(bodyParser.json());
+// app.use(multer()); // for parsing multipart/form-data
 mongoose.Promise = global.Promise;
 
 // const logRequest = (req, res, next) => {
@@ -127,15 +129,22 @@ app.post('/post', (req, res, next) => {
 })
 
 app.post('/:id', (req, res, next) => {
-  let id = req.params.id;
-  console.log("in app.put route, id= " + id);
-  Question.findByIdAndUpdate(id, req.body).then(questions => {
-    res.status(201).send(questions);
-    next();
-  })
-  .catch(err => {
-    res.status(500).send(err);
-  });
+  // let id = req.params.id;
+  // var updatedQuestion = req.body;
+  // debugger;
+  // console.log("in app.put route, id= " + id);
+  // console.log("req params " + JSON.stringify(req.params));
+  // console.log("req body " + JSON.stringify(req.body));
+  // console.log("req.params.id: " + JSON.stringify(req.params.id));
+  // console.log("updatedQuestion: " + JSON.stringify(updatedQuestion));
+
+  Question.findByIdAndUpdate(req.params.id, req.body).then(questions => {
+      res.status(201).send(questions);
+      next();
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
 })
 
 app.delete('/:id', (req, res, next) => {
