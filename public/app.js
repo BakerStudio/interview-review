@@ -8,13 +8,12 @@ let QUESTION_CREATE_ENDPOINT = '/post';
 let categoryArray = [];
 let questionsArray = [];
 
-<<<<<<< HEAD
-function switchEndpoints(location) {
-  QUESTIONS_ENDPOINT = '/questions';
-  QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
-  QUESTIONS_DELETE_ENDPOINT = '/';
-  CATEGORIES_ENDPOINT = '/categories';
-  CATEGORY_COUNT_ENDPOINT = '/category-count';
+// function switchEndpoints(location) {
+//   QUESTIONS_ENDPOINT = '/questions';
+//   QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
+//   QUESTIONS_DELETE_ENDPOINT = '/';
+//   CATEGORIES_ENDPOINT = '/categories';
+//   CATEGORY_COUNT_ENDPOINT = '/category-count';
 
   // if (location === "local") {
   //   console.log("Setting endpoints to use local URLs");
@@ -31,10 +30,8 @@ function switchEndpoints(location) {
   //   CATEGORIES_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/categories';
   //   CATEGORY_COUNT_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/category-count';
   // }
-}
+// }
 
-=======
->>>>>>> feature/modal_edit
 function displayQuestions(data) {
   var text = '';
   questionsArray = data;
