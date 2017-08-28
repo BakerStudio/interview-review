@@ -1,0 +1,52 @@
+
+
+text = `
+<div class="modal fade" id="add-editor" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+          <form id="formId" action="do-something" method="post">
+        <div class="modal-body"><p>New text with q &amp; a</p>';
+
+          <div class="form-group newQuestion">
+            <label for="question" class="control-label">Question</label>
+            <textarea spellcheck="true" name="question" class="form-control" +
+                        rows=3 placeholder"Enter question here"></textarea>
+          </div> <!-- form-group -->
+
+          <div class="form-group newAnswer">
+            <label for="answer" class="control-label">Answer</label>
+            <textarea spellcheck="true" name="answer" class="form-control" +
+                        rows=3 placeholder"Enter answer here"></textarea>
+          </div> <!-- form-group -->
+
+          <div class="form-group newCategory">
+            <label for="category" class="control-label">Category</label>
+            <textarea spellcheck="true" name="category" class="form-control" +
+                        rows=1 placeholder="Enter category"></textarea>
+          </div> <!-- form-group -->
+
+          <div class="form-group">
+            <label for="rating" class="control-label">Rating</label>
+            <select name="rating" size="1">
+            <option selected>Select one...</option>
+            <option value="beginner">beginner</option>
+            <option value="intermediate">intermediate</option>
+            <option value="advanced">advanced</option>
+            <option value="guru-level">guru-level</option>
+            </select>';
+          </div> <!-- form-group -->
+
+        </div> <!-- modal-body -->
+
+        <div class="modal-footer">
+          <button type="submit" data-edit="modal" class="btn btn-primary">Update</button>
+          <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+        </div> <!-- modal-footer -->
+
+        </form>
+      </div> <!-- modal-header -->
+    </div> <!-- modal-content -->
+  </div> <!--modal-dialog -->
+</div> <!-- modal --> `;

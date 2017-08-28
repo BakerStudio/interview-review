@@ -8,6 +8,12 @@ body {
         background-color: #e6f2ff;  /* very light blue */
 }
 
+#subtitle {
+  text-align: right;
+  /*font-size: 8px;*/
+  color: cornflowerblue;
+}
+
 .content {
   text-align: left;
   font-size: 10px;
@@ -27,7 +33,7 @@ body {
   /*background-color: yellow;*/
 }
 
-.nav {
+.nav .add-area {
   width: 20%;
   height: 600px;
   font-size: 14px;
@@ -42,23 +48,34 @@ body {
   /*background-color: white;*/
 }
 
+.del-button:hover {
+  background-color: gray;
+  color: white;
+}
+
 .del-button {
-  /*width: 125px;*/
-  font-size: 12px;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 15px;
-  border-color: black;
-  background-color: lightgreen;
+  margin-right: 5px;
+}
+
+.change-button:hover {
+  background-color: gray;
+  color: white;
 }
 
 .change-button {
-  font-size: 12px;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 15px;
-  border-color: black;
-  background-color: pink;
+  margin-left: 5px;
+}
+
+.add-button:hover {
+  background-color: gray;
+  color: white;
+  margin: 6px 6px 6px 6px;
+  padding: 6px 6px 6px 6px;
+}
+
+.add-button {
+  margin: 6px 6px 4px 6px;
+  padding: 6px 6px 4px 6px;
 }
 
 img {
@@ -71,7 +88,7 @@ div.question-box {
 }
 
 div.question-box:hover {
-  background-color: #d9d9d9; /* lightgray */
+  background-color: #f2f2f2; /* lightgray */
 }
 
 .form-group {
@@ -80,4 +97,15 @@ div.question-box:hover {
 
 .form-group label {
   margin-right: 10px;
+}
+
+hr {
+  background-color: red;
+  color: blue;
+  height: 2px;
+  border: 5;
+}
+
+.field-required {
+  color: red;
 }

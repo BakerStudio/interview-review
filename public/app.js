@@ -8,29 +8,6 @@ let QUESTION_CREATE_ENDPOINT = '/post';
 let categoryArray = [];
 let questionsArray = [];
 
-// function switchEndpoints(location) {
-//   QUESTIONS_ENDPOINT = '/questions';
-//   QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
-//   QUESTIONS_DELETE_ENDPOINT = '/';
-//   CATEGORIES_ENDPOINT = '/categories';
-//   CATEGORY_COUNT_ENDPOINT = '/category-count';
-
-  // if (location === "local") {
-  //   console.log("Setting endpoints to use local URLs");
-  //   QUESTIONS_ENDPOINT = 'http://localhost:8080/questions';
-  //   QUESTIONS_CATEGORY_ENDPOINT = 'http://localhost:8080/questions/';
-  //   QUESTIONS_DELETE_ENDPOINT = 'http://localhost:8080/';
-  //   CATEGORIES_ENDPOINT = 'http://localhost:8080/categories';
-  //   CATEGORY_COUNT_ENDPOINT = 'http://localhost:8080/category-count';
-  // } else {
-  //   console.log("Setting endpoints to use remote URLs");
-  //   QUESTIONS_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions';
-  //   QUESTIONS_CATEGORY_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/questions/';
-  //   QUESTIONS_DELETE_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/';
-  //   CATEGORIES_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/categories';
-  //   CATEGORY_COUNT_ENDPOINT = 'https://gentle-island-84200.herokuapp.com/category-count';
-  // }
-// }
 
 function displayQuestions(data) {
   var text = '';
@@ -43,10 +20,10 @@ function displayQuestions(data) {
     text = text + '<p>Q;  ' + data[i].question + '</p>';
     text = text + '<p>A:  ' + data[i].answer + '</p>';
     text = text + '<p>Rating: ' + data[i].rating + '</p>';
-    text = text + '<button class="del-button" id="' + i +
+    text = text + '<p><button type="button" class="del-button" id="' + i +
       '">Delete</button>';
     text = text + '<button class="change-button" id="' + i +
-        '">Edit</button></div>';
+        '">Edit</button></p></div>';
     }
   $('.main').html(text);
 }
@@ -67,6 +44,11 @@ function displayCategories(data) {
       }
     }
     $('.nav').html(text);
+
+    // display an add button
+    text = '<p class="add-area"><h4>Add a question</h4>';
+    text = text + '<p><button class="add-button">Add</button></p></p><hr>';
+    $('.add-area').html(text);
   }
 
   $.getJSON(CATEGORY_COUNT_ENDPOINT, categoryCount);
@@ -78,17 +60,17 @@ function displayModal(id) {
 
   var text =
       '<div class="form-group dbQuestion" data-mongo-id="' + questionsArray[id]._id + '">' +
-      '<label for="question" class="control-label">Question</label>' +
-      '<textarea spellcheck="true" name="question" class="form-control" rows="3">' +
+      '<label for="question" class="control-label field-required">Question</label>' +
+      '<textarea spellcheck="true" name="question" class="form-control" rows="3" required="true">' +
       questionsArray[id].question + '</textarea></div>' +
     '<div class="form-group">' +
-      '<label for="answer" class="control-label">Answer</label>' +
+      '<label for="answer" class="control-label field-required">Answer</label>' +
       '<textarea spellcheck="true" name="answer" class="form-control" rows="3">' +
       questionsArray[id].answer + '</textarea></div>' +
     '<div class="form-group">' +
-      '<label for="category" class="control-label">Category</label>' +
-      '<input type="text" spellcheck="true" name="category" class="form-control" placeholder=' +
-      questionsArray[id].category + '></div>' +
+      '<label for="category" class="control-label field-required">Category</label>' +
+      '<input type="text" name="category" class="form-control" value="' + questionsArray[id].category + '"></div>' +
+
     '<div class="form-group">' +
       '<label for="rating" class="control-label">Rating</label>' +
       '<select name="rating" size="1">' +
@@ -97,10 +79,67 @@ function displayModal(id) {
       '<option value="intermediate">intermediate</option>' +
       '<option value="advanced">advanced</option>' +
       '<option value="guru-level">guru-level</option>' +
-      '</select></div></div>';
+      '</select></div>';
 
   $('.modal-body').html(text);
 
+  $('#editor').modal();
+}
+
+function addQuestionModal() {
+  console.log("in addQuestionModal");
+
+  // text uses template literal multi-line format, is enclosed with back-ticks
+
+  var text = `
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span>X</span></button>
+            <form id="addId" method="post">
+          <div class="modal-body"><p>Question, answer and category are required</p>
+
+            <div class="form-group newQuestion">
+              <label for="question" class="control-label field-required">Question</label>
+              <textarea spellcheck="true" name="question" class="form-control" +
+                          rows=3 placeholder"Enter question here"></textarea>
+            </div> <!-- form-group -->
+
+            <div class="form-group newAnswer">
+              <label for="answer" class="control-label field-required">Answer</label>
+              <textarea spellcheck="true" name="answer" class="form-control" +
+                          rows=3 placeholder"Enter answer here"></textarea>
+            </div> <!-- form-group -->
+
+            <div class="form-group newCategory">
+              <label for="category" class="control-label field-required">Category</label>
+              <input spellcheck="true" name="category" class="form-control" +
+                         placeholder="Enter category">
+            </div> <!-- form-group -->
+
+            <div class="form-group">
+              <label for="rating" class="control-label">Rating</label>
+              <select name="rating" size="1">
+              <option selected>Select one...</option>
+              <option value="beginner">beginner</option>
+              <option value="intermediate">intermediate</option>
+              <option value="advanced">advanced</option>
+              <option value="guru-level">guru-level</option>
+              </select>
+            </div> <!-- form-group -->
+
+          </div> <!-- modal-body -->
+
+          <div class="modal-footer">
+            <button type="submit" data-edit="modal" class="btn btn-primary">Submit</button>
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+          </div> <!-- modal-footer -->
+          </form>
+        </div> <!-- modal-header -->
+      </div> <!-- modal-content -->
+    </div> <!-- modal-dialog --> `;
+
+  $('.modal').html(text);
   $('#editor').modal();
 }
 
@@ -116,7 +155,7 @@ var catTrimmed = cat.trim();
 if (quTrimmed == '' ||
   anTrimmed == '' ||
   catTrimmed == '') {
-  var text = "The question, answer and category fields are required. \nPlease correct and resubmit.";
+  var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
   $('.modal-title').html(text);
   return;
 }
@@ -140,12 +179,24 @@ if (quTrimmed == '' ||
           // $('.modal-dialog').html('');
           $('.modal-body').html(text);
           // $('.modal-title').remove();
-          $('.modal-title').html("");
+          // $('.modal-title').html("");
           // $('.modal-body').remove();
           $('.main').html(text);
           $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
       }
   });
+};
+
+function postQuestion(target) {
+  console.log("in postQuestion");
+  var qu = target[0].value;
+  var quTrimmed = qu.trim();
+  var an = target[1].value;
+  var anTrimmed = an.trim();
+  var cat = target[2].value;
+  var catTrimmed = cat.trim();
+  debugger;
+
 };
 
 $(function() {
@@ -165,6 +216,14 @@ $(function() {
       categoryArray[event.target.id],
       displayQuestions);
   })
+
+  // Register an event handler for the add button
+  $('.add-area').on('click', event => {
+    event.preventDefault();
+    console.log("add button clicked");
+    addQuestionModal();
+  })
+
 
   // Register event handler for clicking on a
   // question's delete button
@@ -196,11 +255,24 @@ $(function() {
 
   });
 
+  // alert('foo');
+  $('#addId').submit(event => {
+    event.preventDefault();
+    console.log("Insert button intercepted");
+    debugger;
+  });
+
+  // Register an event handler when a question was edited and is
+  // ready to submit
   // $("#formId").submit(function() { alert('yoooo') });
+
   $('#formId').submit(event => {
     event.preventDefault();
+    console.log("edit submit button intercepted");
     var mongoNumber = $('.dbQuestion').data('mongoId');
     formatAndPost(mongoNumber, event.target);
-  })
+  });
+
+
 
 })
