@@ -255,7 +255,7 @@ $(function() {
 
   });
 
-  alert('foo');
+  // alert('foo');
   $('#addId').submit(event => {
     event.preventDefault();
     console.log("Insert button intercepted");
