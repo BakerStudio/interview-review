@@ -13,8 +13,12 @@
 
 <body>
     <div class="header">
-      <img src="logo.png" height="75" width="350">
+      <span><img src="logo.png" height="75" width="350">
+      <p id="subtitle">A Thinkful capstone project</p></span>
       <!-- <h2>Welcome to Interview Review!</h2> -->
+    </div>
+
+    <div class="add-area">
     </div>
 
     <div class="nav">
@@ -31,7 +35,7 @@
               <span>&times;</span>
             </button>
             <h4 class="modal-title">Interview Review category</h4>
-            <form id="formId" action="do-something" method="post">
+            <form id="formId" action="do-update-post" method="post">
               <div class="modal-body">
                 <p>New text with q &amp; a</p>
               </div> <!-- modal-body -->
@@ -40,8 +44,8 @@
               </button>
               <button type="button" data-dismiss="modal" class="btn btn-default">Cancel
               </button>
-            </form>
-
+            </div> <!-- modal-footer -->
+          </form>
           </div> <!-- modal-header -->
         </div> <!-- modal-content -->
       </div> <!--modal-dialog -->
