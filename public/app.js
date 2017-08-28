@@ -96,7 +96,7 @@ function addQuestionModal() {
       <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span>X</span></button>
-            <form id="addId" action="do-add" method="post">
+            <form id="addId" method="post">
           <div class="modal-body"><p>Question, answer and category are required</p>
 
             <div class="form-group newQuestion">
@@ -187,6 +187,18 @@ if (quTrimmed == '' ||
   });
 };
 
+function postQuestion(target) {
+  console.log("in postQuestion");
+  var qu = target[0].value;
+  var quTrimmed = qu.trim();
+  var an = target[1].value;
+  var anTrimmed = an.trim();
+  var cat = target[2].value;
+  var catTrimmed = cat.trim();
+  debugger;
+
+};
+
 $(function() {
   'use strict';
 
@@ -243,6 +255,7 @@ $(function() {
 
   });
 
+  alert('foo');
   $('#addId').submit(event => {
     event.preventDefault();
     console.log("Insert button intercepted");
