@@ -155,25 +155,25 @@ function addQuestionModal() {
 function formatAndAdd(target) {
 
   console.log("in formatAndAdd");
-  var qu = target[0].value;
-  var quTrimmed = qu.trim();
-  var an = target[1].value;
-  var anTrimmed = an.trim();
-  var cat = target[2].value;
-  var catTrimmed = cat.trim();
+  // var qu = target[0].value;
+  // var quTrimmed = qu.trim();
+  // var an = target[1].value;
+  // var anTrimmed = an.trim();
+  // var cat = target[2].value;
+  // var catTrimmed = cat.trim();
 
-  if (quTrimmed == '' ||
-    anTrimmed == '' ||
-    catTrimmed == '') {
+  if (!target[0].value ||
+      !target[1].value ||
+      !target[2].value) {
     var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
     $('.modal-title').html(text);
     return;
   }
   var addQuestion = {
-    "question": quTrimmed,
-    "answer": anTrimmed,
-    "category": catTrimmed,
-    "rating": target[3].value
+    "question": target[0].value.trim(),
+    "answer": target[1].value.trim(),
+    "category": target[2].value.trim(),
+    "rating": target[3].value.trim()
   }
   var strAdd = JSON.stringify(addQuestion);
   $.ajax({

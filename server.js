@@ -121,7 +121,7 @@ app.post('/post', (req, res, next) => {
   let data = req.body;
   Question.create(req.body).then(data => {
       res.status(201).json(req.body);
-      next();
+      // next();
     })
     .catch(err => {
       res.status(500, err);

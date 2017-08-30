@@ -96,14 +96,8 @@
 "asource": "https://www.educative.io/collection/page/5679346740101120/5707702298738688/5766466041282560",
 "rating": "beginner"}
 
-{"question": "",
-"answer": "",
-"category": "",
-"asource": "",
-"rating": ""}
-
-{"question": "",
-"answer": "",
-"category": "",
+{"question": "question blank",
+"answer": "answer blank",
+"category": "Blank",
 "asource": "",
 "rating": ""}
