@@ -91,56 +91,104 @@ function addQuestionModal() {
 
   // text uses template literal multi-line format, is enclosed with back-ticks
 
-  var text = `
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span>X</span></button>
-            <form id="addId" method="post">
-          <div class="modal-body"><p>Question, answer and category are required</p>
+  var text = '';
 
-            <div class="form-group newQuestion">
-              <label for="question" class="control-label field-required">Question</label>
-              <textarea spellcheck="true" name="question" class="form-control" +
-                          rows=3 placeholder"Enter question here"></textarea>
-            </div> <!-- form-group -->
+  // var textNode = $(text).find(‘form’).submit(event => {
+  // var textNode = $(text).find('#addId').submit(event => {
+  //   event.preventDefault();
+  //   console.log("Insert button intercepted");
+  // });
 
-            <div class="form-group newAnswer">
-              <label for="answer" class="control-label field-required">Answer</label>
-              <textarea spellcheck="true" name="answer" class="form-control" +
-                          rows=3 placeholder"Enter answer here"></textarea>
-            </div> <!-- form-group -->
+  // text = `
+  //   <div class="modal-dialog">
+  //     <div class="modal-content">
+  //       <div class="modal-header">
+  //           <button type="button" class="close" data-dismiss="modal"><span>X</span></button>
+  //           <form id="addId" method="post">
+  //         <div class="modal-body"><p>Question, answer and category are required</p>
+  //
+  //           <div class="form-group newQuestion">
+  //             <label for="question" class="control-label field-required">Question</label>
+  //             <textarea spellcheck="true" name="question" class="form-control" +
+  //                         rows=3 placeholder"Enter question here"></textarea>
+  //           </div> <!-- form-group -->
+  //
+  //           <div class="form-group newAnswer">
+  //             <label for="answer" class="control-label field-required">Answer</label>
+  //             <textarea spellcheck="true" name="answer" class="form-control" +
+  //                         rows=3 placeholder"Enter answer here"></textarea>
+  //           </div> <!-- form-group -->
+  //
+  //           <div class="form-group newCategory">
+  //             <label for="category" class="control-label field-required">Category</label>
+  //             <input spellcheck="true" name="category" class="form-control" +
+  //                        placeholder="Enter category">
+  //           </div> <!-- form-group -->
+  //
+  //           <div class="form-group">
+  //             <label for="rating" class="control-label">Rating</label>
+  //             <select name="rating" size="1">
+  //             <option selected>Select one...</option>
+  //             <option value="beginner">beginner</option>
+  //             <option value="intermediate">intermediate</option>
+  //             <option value="advanced">advanced</option>
+  //             <option value="guru-level">guru-level</option>
+  //             </select>
+  //           </div> <!-- form-group -->
+  //
+  //         </div> <!-- modal-body -->
+  //
+  //         <div class="modal-footer">
+  //           <button type="submit" data-edit="modal" class="btn btn-primary">Submit</button>
+  //           <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+  //         </div> <!-- modal-footer -->
+  //         </form>
+  //       </div> <!-- modal-header -->
+  //     </div> <!-- modal-content -->
+  //   </div> <!-- modal-dialog --> `;
 
-            <div class="form-group newCategory">
-              <label for="category" class="control-label field-required">Category</label>
-              <input spellcheck="true" name="category" class="form-control" +
-                         placeholder="Enter category">
-            </div> <!-- form-group -->
+  // $('.modal').html(text);
+  // $('.modal').append(textNode);
+  $('#add-editor').modal();
+}
 
-            <div class="form-group">
-              <label for="rating" class="control-label">Rating</label>
-              <select name="rating" size="1">
-              <option selected>Select one...</option>
-              <option value="beginner">beginner</option>
-              <option value="intermediate">intermediate</option>
-              <option value="advanced">advanced</option>
-              <option value="guru-level">guru-level</option>
-              </select>
-            </div> <!-- form-group -->
+function formatAndAdd(target) {
 
-          </div> <!-- modal-body -->
+  console.log("in formatAndAdd");
+  var qu = target[0].value;
+  var quTrimmed = qu.trim();
+  var an = target[1].value;
+  var anTrimmed = an.trim();
+  var cat = target[2].value;
+  var catTrimmed = cat.trim();
 
-          <div class="modal-footer">
-            <button type="submit" data-edit="modal" class="btn btn-primary">Submit</button>
-            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-          </div> <!-- modal-footer -->
-          </form>
-        </div> <!-- modal-header -->
-      </div> <!-- modal-content -->
-    </div> <!-- modal-dialog --> `;
-
-  $('.modal').html(text);
-  $('#editor').modal();
+  if (quTrimmed == '' ||
+    anTrimmed == '' ||
+    catTrimmed == '') {
+    var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
+    $('.modal-title').html(text);
+    return;
+  }
+  var addQuestion = {
+    "question": quTrimmed,
+    "answer": anTrimmed,
+    "category": catTrimmed,
+    "rating": target[3].value
+  }
+  var strAdd = JSON.stringify(addQuestion);
+  $.ajax({
+    url: QUESTION_CREATE_ENDPOINT,
+    type: "POST",
+    dataType: 'json',
+    contentType: 'application/json',
+    data: strAdd,
+    success: function(result) {
+        var text = '';
+        $('.modal-body').html(text);
+        $('.main').html(text);
+        $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
+      }
+    })
 }
 
 function formatAndPost(mongoId, target) {
@@ -196,7 +244,6 @@ function postQuestion(target) {
   var cat = target[2].value;
   var catTrimmed = cat.trim();
   debugger;
-
 };
 
 $(function() {
@@ -255,11 +302,10 @@ $(function() {
 
   });
 
-  // alert('foo');
   $('#addId').submit(event => {
     event.preventDefault();
     console.log("Insert button intercepted");
-    debugger;
+    formatAndAdd(event.target);
   });
 
   // Register an event handler when a question was edited and is
