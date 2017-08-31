@@ -102,7 +102,7 @@ function formatAndAdd(target) {
       !target[1].value ||
       !target[2].value) {
         var text = "<strong>Please correct and resubmit.</strong>";
-        $('.modal-body').append(text);
+        $('.modal-body-add').append(text);
         $('#add-editor').modal();
         return;
       }
@@ -124,7 +124,7 @@ function formatAndAdd(target) {
         questionsArray = [];
         // $('.modal-body').html(text);
         // $('#add-editor').modal('hide');
-        $('.modal-body').find('textarea,input').val('');
+        $('.modal-body-add').find('textarea,input').val('');
         $('#addId').get(0).reset();
         $('#add-editor').modal('hide');
         // $('#add-editor').remove();
