@@ -14,16 +14,19 @@ function displayQuestions(data) {
   questionsArray = data;
 
   for (var i = 0; i < data.length; i++) {
+
+    //note: use templates here
     text = text + '<div class="question-box">';
-    text = text + '<p id ="' + i + '"><b>' + (i + 1) + '. '
-      + data[i].category + '</b></p>';
+    text = text + '<p id ="' + i + '"><b>Category: ' +
+      data[i].category + '</b></p>';
     text = text + '<p>Q;  ' + data[i].question + '</p>';
     text = text + '<p>A:  ' + data[i].answer + '</p>';
     text = text + '<p>Rating: ' + data[i].rating + '</p>';
-    text = text + '<p><button type="button" class="del-button" id="' + i +
-      '">Delete</button>';
-    text = text + '<button class="change-button" id="' + i +
-        '">Edit</button></p></div>';
+    text = text + '<p><button type="button" class="change-button" id="' + i +
+        '">Edit</button>';
+    text = text + '<button type="button" class="del-button" id="' + i +
+      '">Delete</button></p></div>';
+
     }
   $('.main').html(text);
 }
@@ -55,7 +58,7 @@ function displayCategories(data) {
 }
 
 function displayModal(id) {
-  var title = 'Topic: ' + questionsArray[id].category;
+  var title = 'Category: ' + questionsArray[id].category;
   $('.modal-title').html(title);
 
   var text =
@@ -70,7 +73,6 @@ function displayModal(id) {
     '<div class="form-group">' +
       '<label for="category" class="control-label field-required">Category</label>' +
       '<input type="text" name="category" class="form-control" value="' + questionsArray[id].category + '"></div>' +
-
     '<div class="form-group">' +
       '<label for="rating" class="control-label">Rating</label>' +
       '<select name="rating" size="1">' +
@@ -82,93 +84,28 @@ function displayModal(id) {
       '</select></div>';
 
   $('.modal-body').html(text);
-
   $('#editor').modal();
 }
 
+
 function addQuestionModal() {
   console.log("in addQuestionModal");
-
-  // text uses template literal multi-line format, is enclosed with back-ticks
-
   var text = '';
-
-  // var textNode = $(text).find(‘form’).submit(event => {
-  // var textNode = $(text).find('#addId').submit(event => {
-  //   event.preventDefault();
-  //   console.log("Insert button intercepted");
-  // });
-
-  // text = `
-  //   <div class="modal-dialog">
-  //     <div class="modal-content">
-  //       <div class="modal-header">
-  //           <button type="button" class="close" data-dismiss="modal"><span>X</span></button>
-  //           <form id="addId" method="post">
-  //         <div class="modal-body"><p>Question, answer and category are required</p>
-  //
-  //           <div class="form-group newQuestion">
-  //             <label for="question" class="control-label field-required">Question</label>
-  //             <textarea spellcheck="true" name="question" class="form-control" +
-  //                         rows=3 placeholder"Enter question here"></textarea>
-  //           </div> <!-- form-group -->
-  //
-  //           <div class="form-group newAnswer">
-  //             <label for="answer" class="control-label field-required">Answer</label>
-  //             <textarea spellcheck="true" name="answer" class="form-control" +
-  //                         rows=3 placeholder"Enter answer here"></textarea>
-  //           </div> <!-- form-group -->
-  //
-  //           <div class="form-group newCategory">
-  //             <label for="category" class="control-label field-required">Category</label>
-  //             <input spellcheck="true" name="category" class="form-control" +
-  //                        placeholder="Enter category">
-  //           </div> <!-- form-group -->
-  //
-  //           <div class="form-group">
-  //             <label for="rating" class="control-label">Rating</label>
-  //             <select name="rating" size="1">
-  //             <option selected>Select one...</option>
-  //             <option value="beginner">beginner</option>
-  //             <option value="intermediate">intermediate</option>
-  //             <option value="advanced">advanced</option>
-  //             <option value="guru-level">guru-level</option>
-  //             </select>
-  //           </div> <!-- form-group -->
-  //
-  //         </div> <!-- modal-body -->
-  //
-  //         <div class="modal-footer">
-  //           <button type="submit" data-edit="modal" class="btn btn-primary">Submit</button>
-  //           <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-  //         </div> <!-- modal-footer -->
-  //         </form>
-  //       </div> <!-- modal-header -->
-  //     </div> <!-- modal-content -->
-  //   </div> <!-- modal-dialog --> `;
-
-  // $('.modal').html(text);
-  // $('.modal').append(textNode);
   $('#add-editor').modal();
 }
+
 
 function formatAndAdd(target) {
 
   console.log("in formatAndAdd");
-  // var qu = target[0].value;
-  // var quTrimmed = qu.trim();
-  // var an = target[1].value;
-  // var anTrimmed = an.trim();
-  // var cat = target[2].value;
-  // var catTrimmed = cat.trim();
-
   if (!target[0].value ||
       !target[1].value ||
       !target[2].value) {
-    var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
-    $('.modal-title').html(text);
-    return;
-  }
+        var text = "<strong>Please correct and resubmit.</strong>";
+        $('.modal-body').append(text);
+        $('#add-editor').modal();
+        return;
+      }
   var addQuestion = {
     "question": target[0].value.trim(),
     "answer": target[1].value.trim(),
@@ -184,8 +121,14 @@ function formatAndAdd(target) {
     data: strAdd,
     success: function(result) {
         var text = '';
-        $('.modal-body').html(text);
-        $('.main').html(text);
+        questionsArray = [];
+        // $('.modal-body').html(text);
+        // $('#add-editor').modal('hide');
+        $('.modal-body').find('textarea,input').val('');
+        $('#addId').get(0).reset();
+        $('#add-editor').modal('hide');
+        // $('#add-editor').remove();
+        // $('.main').html(text);
         $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
       }
     })
@@ -193,26 +136,26 @@ function formatAndAdd(target) {
 
 function formatAndPost(mongoId, target) {
 
-var qu = target[0].value;
-var quTrimmed = qu.trim();
-var an = target[1].value;
-var anTrimmed = an.trim();
-var cat = target[2].value;
-var catTrimmed = cat.trim();
+  var qu = target[0].value;
+  var quTrimmed = qu.trim();
+  var an = target[1].value;
+  var anTrimmed = an.trim();
+  var cat = target[2].value;
+  var catTrimmed = cat.trim();
 
-if (quTrimmed == '' ||
-  anTrimmed == '' ||
-  catTrimmed == '') {
-  var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
-  $('.modal-title').html(text);
-  return;
-}
-   var updatedQuestion = {
-        "question": quTrimmed,
-        "answer": anTrimmed,
-        "category": catTrimmed,
-        "rating": target[3].value
-     };
+  if (quTrimmed == '' ||
+    anTrimmed == '' ||
+    catTrimmed == '') {
+    var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
+    $('.modal-title').html(text);
+    return;
+  }
+  var updatedQuestion = {
+      "question": quTrimmed,
+      "answer": anTrimmed,
+      "category": catTrimmed,
+      "rating": target[3].value
+   };
    var strQuestion = JSON.stringify(updatedQuestion);
 
   $.ajax({
@@ -223,13 +166,18 @@ if (quTrimmed == '' ||
       data: strQuestion,
       success: function(result) {
           // console.log("Document updated");
+          $('#formId').get(0).reset();
           var text = '';
+          questionsArray = [];
+          $('.modal-body').find('textarea,input').val('');
           // $('.modal-dialog').html('');
-          $('.modal-body').html(text);
+          // $('.modal-body').html(text);
+          $('#editor').modal('hide');
           // $('.modal-title').remove();
           // $('.modal-title').html("");
           // $('.modal-body').remove();
           $('.main').html(text);
+
           $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
       }
   });
@@ -267,10 +215,12 @@ $(function() {
   // Register an event handler for the add button
   $('.add-area').on('click', event => {
     event.preventDefault();
-    console.log("add button clicked");
-    addQuestionModal();
-  })
 
+    console.log("add button clicked");
+    // addQuestionModal();
+
+    $('#add-editor').modal();
+  })
 
   // Register event handler for clicking on a
   // question's delete button

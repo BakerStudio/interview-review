@@ -60,10 +60,14 @@ body {
 .change-button:hover {
   background-color: gray;
   color: white;
+  /*margin: 6px 6px 6px 6px;
+  padding: 6px 6px 6px 6px;*/
 }
 
 .change-button {
-  margin-left: 5px;
+  margin-right: 5px;
+  /*margin: 6px 6px 4px 6px;
+  padding: 6px 6px 4px 6px;*/
 }
 
 .add-button:hover {
@@ -84,7 +88,7 @@ img {
 
 div.question-box {
   background-color: white;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 div.question-box:hover {
