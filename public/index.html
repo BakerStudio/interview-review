@@ -2,110 +2,114 @@
 <html lang='en'>
 
 <head>
-    <title>Interview Review</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Interview Review</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Average+Sans|Goudy+Bookletter+1911" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <div class="header">
-      <span><img src="logo.png" height="75" width="350">
-      <p id="subtitle">A Thinkful capstone project</p></span>
-      <!-- <h2>Welcome to Interview Review!</h2> -->
-    </div>
 
+  <div class="header-container">
+    <span><img src="logo.png" height="75" width="350"></span>
+    <span id="subtitle">A <a href="https://www.thinkful.com" target="_blank">Thinkful</a>
+         capstone project</span>
+  </div>
+
+  <div class="side-container">
     <div class="add-area">
     </div>
-
     <div class="nav">
     </div>
+  </div>
 
-    <div class="main">
-    </div>
+  <div class="main">
+  </div>
 
-    <div class="edit-modal-container">
-      <div class="modal fade" id="editor" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span>&times;</span>
+  <div class="edit-modal-container">
+    <div class="modal fade" id="editor" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+            <h4 class="modal-title">Interview Review category</h4>
+            <form id="formId" action="do-update-post" method="post">
+              <div class="modal-body">
+                <p>New text with q &amp; a</p>
+              </div> <!-- modal-body -->
+            <div class="modal-footer">
+              <button type="submit" data-edit="modal" class="btn btn-primary">Update
               </button>
-              <h4 class="modal-title">Interview Review category</h4>
-              <form id="formId" action="do-update-post" method="post">
-                <div class="modal-body">
-                  <p>New text with q &amp; a</p>
-                </div> <!-- modal-body -->
-              <div class="modal-footer">
-                <button type="submit" data-edit="modal" class="btn btn-primary">Update
-                </button>
-                <button type="button" data-dismiss="modal" class="btn btn-default">Cancel
-                </button>
-              </div> <!-- modal-footer -->
-            </form>
-            </div> <!-- modal-header -->
-          </div> <!-- modal-content -->
-        </div> <!--modal-dialog -->
-      </div>  <!-- modal -->
-  </div> <!-- end of edit-modal-container -->
+              <button type="button" data-dismiss="modal" class="btn btn-default">Cancel
+              </button>
+            </div> <!-- modal-footer -->
+          </form>
+          </div> <!-- modal-header -->
+        </div> <!-- modal-content -->
+      </div> <!--modal-dialog -->
+    </div>  <!-- modal -->
+</div> <!-- end of edit-modal-container -->
 
 </div class="add-modal-container">
-  <div class="modal fade" id="add-editor" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span>X</span></button>
-            <form id="addId" method="post">
-          <div class="modal-body-add"><p>Question, answer and category are required</p>
-            <div class="form-group newQuestion">
-              <label for="question" class="control-label field-required">Question</label>
-              <textarea spellcheck="true" name="question" class="form-control" +
-                          rows=3 placeholder"Enter question here"></textarea>
-            </div> <!-- form-group -->
+<div class="modal fade" id="add-editor" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span>X</span></button>
+          <form id="addId" method="post">
+        <div class="modal-body-add"><p>Question, answer and category are required</p>
+          <div class="form-group newQuestion">
+            <label for="question" class="control-label field-required">Question</label>
+            <textarea spellcheck="true" name="question" class="form-control" +
+                        rows=3 placeholder"Enter question here"></textarea>
+          </div> <!-- form-group -->
 
-            <div class="form-group newAnswer">
-              <label for="answer" class="control-label field-required">Answer</label>
-              <textarea spellcheck="true" name="answer" class="form-control" +
-                          rows=3 placeholder"Enter answer here"></textarea>
-            </div> <!-- form-group -->
+          <div class="form-group newAnswer">
+            <label for="answer" class="control-label field-required">Answer</label>
+            <textarea spellcheck="true" name="answer" class="form-control" +
+                        rows=3 placeholder"Enter answer here"></textarea>
+          </div> <!-- form-group -->
 
-            <div class="form-group newCategory">
-              <label for="category" class="control-label field-required">Category</label>
-              <input spellcheck="true" name="category" class="form-control" +
-                         placeholder="Enter category">
-            </div> <!-- form-group -->
+          <div class="form-group newCategory">
+            <label for="category" class="control-label field-required">Category</label>
+            <input spellcheck="true" name="category" class="form-control" +
+                       placeholder="Enter category">
+          </div> <!-- form-group -->
 
-            <div class="form-group">
-              <label for="rating" class="control-label">Rating</label>
-              <select name="rating" size="1">
-              <option selected>Select one...</option>
-              <option value="beginner">beginner</option>
-              <option value="intermediate">intermediate</option>
-              <option value="advanced">advanced</option>
-              <option value="guru-level">guru-level</option>
-              </select>
-            </div> <!-- form-group -->
+          <div class="form-group">
+            <label for="rating" class="control-label">Rating</label>
+            <select name="rating" size="1">
+            <option selected>Select one...</option>
+            <option value="beginner">beginner</option>
+            <option value="intermediate">intermediate</option>
+            <option value="advanced">advanced</option>
+            <option value="guru-level">guru-level</option>
+            </select>
+          </div> <!-- form-group -->
 
-          </div> <!-- modal-body-add -->
+        </div> <!-- modal-body-add -->
 
-          <div class="modal-footer">
-            <button type="submit" data-edit="modal" class="btn btn-primary">Submit</button>
-            <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-          </div> <!-- modal-footer -->
-          </form>
-        </div> <!-- modal-header -->
-      </div> <!-- modal-content -->
-    </div> <!-- modal-dialog -->
-  </div> <!-- end of modal -->
+        <div class="modal-footer">
+          <button type="submit" data-edit="modal" class="btn btn-primary">Submit</button>
+          <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+        </div> <!-- modal-footer -->
+        </form>
+      </div> <!-- modal-header -->
+    </div> <!-- modal-content -->
+  </div> <!-- modal-dialog -->
+</div> <!-- end of modal -->
 </div> <!-- end of add-modal-container -->
 
 
 
-  <script src="app.js"></script>
+<script src="app.js"></script>
+
 </body>
 
 </html>

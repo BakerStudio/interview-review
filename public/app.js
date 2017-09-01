@@ -19,7 +19,7 @@ function displayQuestions(data) {
     text = text + '<div class="question-box">';
     text = text + '<p id ="' + i + '"><b>Category: ' +
       data[i].category + '</b></p>';
-    text = text + '<p>Q;  ' + data[i].question + '</p>';
+    text = text + '<p>Q:  ' + data[i].question + '</p>';
     text = text + '<p>A:  ' + data[i].answer + '</p>';
     text = text + '<p>Rating: ' + data[i].rating + '</p>';
     text = text + '<p><button type="button" class="change-button" id="' + i +
@@ -36,21 +36,23 @@ function displayCategories(data) {
   categoryArray = data;
 
   function categoryCount(catCountData) {
-    text = '<p><h4>Select category</h4></p>';
+    text = '<div><h4>Select a category</h4></div>';
     for (var i=0; i < data.length; i++) {
-      text = text + '<p id="' + i + '">' + data[i] +
-        ' (' + catCountData[i];
-      if (catCountData[i] > 1) {
-        text = text + ' questions)</p>';
-      } else {
-        text = text + ' question)</p>';
-      }
+      text = text + '<p class="catlist" id="' + i + '">' + data[i] +
+        ' (' + catCountData[i] + ')';
+      // if (catCountData[i] > 1) {
+      //   text = text + ' questions)</p>';
+      // } else {
+      //   text = text + ' question)</p>';
+      // }
     }
     $('.nav').html(text);
 
     // display an add button
-    text = '<p class="add-area"><h4>Add a question</h4>';
-    text = text + '<p><button class="add-button">Add</button></p></p><hr>';
+    // text = '<div class="add-area"><h4>Add a question</h4>' +
+    //     '<button class="add-button">Add</button></div>';
+    text = '<p><h4>Add a question</h4>' +
+            '<button class="add-button">Add</button></p>';
     $('.add-area').html(text);
   }
 
@@ -101,7 +103,7 @@ function formatAndAdd(target) {
   if (!target[0].value ||
       !target[1].value ||
       !target[2].value) {
-        var text = "<strong>Please correct and resubmit.</strong>";
+        var text = "<strong>The fields cannot be blank. Please correct and resubmit.</strong>";
         $('.modal-body-add').append(text);
         $('#add-editor').modal();
         return;
@@ -213,12 +215,10 @@ $(function() {
   })
 
   // Register an event handler for the add button
+  // $('.add-area').on('click', event => {
   $('.add-area').on('click', event => {
     event.preventDefault();
-
     console.log("add button clicked");
-    // addQuestionModal();
-
     $('#add-editor').modal();
   })
 
