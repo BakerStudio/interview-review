@@ -1,5 +1,6 @@
 let QUESTIONS_ENDPOINT = '/questions';
 let QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
+let QUESTIONS_RANDOM_ENDPOINT = '/random';
 let QUESTIONS_DELETE_ENDPOINT = '/';
 let CATEGORIES_ENDPOINT = '/categories';
 let CATEGORY_COUNT_ENDPOINT = '/category-count';
@@ -16,17 +17,16 @@ function displayQuestions(data) {
   for (var i = 0; i < data.length; i++) {
 
     //note: use templates here
-    text = text + '<div class="question-box">';
-    text = text + '<p id ="' + i + '"><b>Category: ' +
-      data[i].category + '</b></p>';
-    text = text + '<p>Q:  ' + data[i].question + '</p>';
-    text = text + '<p>A:  ' + data[i].answer + '</p>';
-    text = text + '<p>Rating: ' + data[i].rating + '</p>';
-    text = text + '<p><button type="button" class="change-button" id="' + i +
-        '">Edit</button>';
-    text = text + '<button type="button" class="del-button" id="' + i +
-      '">Delete</button></p></div>';
-
+    text = text + '<hr><div class="question-box">';
+    text = text + '<p id ="' + i + '"><center><b>Category: ' +
+      data[i].category + '</b></center></p>';
+    text = text + '<p>Question: ' + data[i].question + '</p>';
+    text = text + '<p>Answer: ' + data[i].answer + '</p>';
+    text = text + '<br><p>Rating: ' + data[i].rating + '</p>';
+    text = text + '<p><button type="button" class="del-button" id="' + i +
+        '">Delete</button>';
+    text = text + '<button type="button" class="change-button" id="' + i +
+      '">Edit</button></p></div><br>';
     }
   $('.main').html(text);
 }
@@ -54,6 +54,9 @@ function displayCategories(data) {
     text = '<p><h4>Add a question</h4>' +
             '<button class="add-button">Add</button></p>';
     $('.add-area').html(text);
+    text = '<p><h4>Display random questions</h4>' +
+            '<button class="random-button">Random</button></p>';
+    $('.random-area').html(text);
   }
 
   $.getJSON(CATEGORY_COUNT_ENDPOINT, categoryCount);
@@ -215,11 +218,19 @@ $(function() {
   })
 
   // Register an event handler for the add button
-  // $('.add-area').on('click', event => {
+
   $('.add-area').on('click', event => {
     event.preventDefault();
     console.log("add button clicked");
     $('#add-editor').modal();
+  })
+
+  //  Register an event handler for the random button
+
+  $('.random-area').on('click', event => {
+    event.preventDefault();
+    console.log("random button clicked");
+    $.getJSON(QUESTIONS_RANDOM_ENDPOINT, displayQuestions);
   })
 
   // Register event handler for clicking on a

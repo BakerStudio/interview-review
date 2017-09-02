@@ -63,6 +63,17 @@ app.get('/questions/:cat', (req, res, next) => {
     })
 })
 
+app.get('/random', (req, res, next) => {
+  Question.aggregate({$sample: {size: 3}})
+    .then(questions => {
+      res.status(200).send(questions);
+      next()
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    })
+})
+
 app.get('/count', (req, res, next) => {
   Question.count()
     .then(count => {
