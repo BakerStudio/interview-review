@@ -65,7 +65,7 @@ function displayCategories(data) {
 function displayModal(id) {
   var title = 'Category: ' + questionsArray[id].category;
   $('.modal-title').html(title);
-
+  var rating = !questionsArray[id].rating ? "not present" : questionsArray[id].rating;
   var text =
       '<div class="form-group dbQuestion" data-mongo-id="' + questionsArray[id]._id + '">' +
       '<label for="question" class="control-label field-required">Question</label>' +
@@ -79,14 +79,20 @@ function displayModal(id) {
       '<label for="category" class="control-label field-required">Category</label>' +
       '<input type="text" name="category" class="form-control" value="' + questionsArray[id].category + '"></div>' +
     '<div class="form-group">' +
-      '<label for="rating" class="control-label">Rating</label>' +
-      '<select name="rating" size="1">' +
-      '<option selected>Select one...</option>' +
-      '<option value="beginner">beginner</option>' +
-      '<option value="intermediate">intermediate</option>' +
-      '<option value="advanced">advanced</option>' +
-      '<option value="guru-level">guru-level</option>' +
-      '</select></div>';
+      '<label for="rating" class="control-label"><p>Current rating: ' + rating + '</p></label>' +
+      // '<select name="rating" size="1">' +
+      // '<option selected>Select one...</option>' +
+      // '<option value="beginner">beginner</option>' +
+      // '<option value="intermediate">intermediate</option>' +
+      // '<option value="advanced">advanced</option>' +
+      // '<option value="guru-level">guru-level</option>' +
+      // '</select></div>';
+      '<center><label class="radio-inline" id="beg-button">' +
+      '<input type="radio" name="ratebutton" value="beginner">beginner</label>' +
+      '<label class="radio-inline" id="int-button"><input type="radio"' + 'name="ratebutton"  value="intermediate">intermediate</label>' +
+      '<label class="radio-inline" id="adv-button"><input type="radio"' +
+      'name="ratebutton" value="advanced">advanced</label>' +
+      '<label class="radio-inline" id="guru-button"><input type="radio"' + 'name="ratebutton" value="guru-level">guru-level</label></center></div>';
 
   $('.modal-body').html(text);
   $('#editor').modal();
@@ -94,7 +100,6 @@ function displayModal(id) {
 
 
 function addQuestionModal() {
-  console.log("in addQuestionModal");
   var text = '';
   $('#add-editor').modal();
 }
@@ -102,7 +107,6 @@ function addQuestionModal() {
 
 function formatAndAdd(target) {
 
-  console.log("in formatAndAdd");
   if (!target[0].value ||
       !target[1].value ||
       !target[2].value) {
@@ -141,6 +145,9 @@ function formatAndAdd(target) {
 
 function formatAndPost(mongoId, target) {
 
+  //  Determine which radio button was selected
+  var newRating = document.querySelector('input[name="ratebutton"]:checked').value;
+
   var qu = target[0].value;
   var quTrimmed = qu.trim();
   var an = target[1].value;
@@ -159,7 +166,7 @@ function formatAndPost(mongoId, target) {
       "question": quTrimmed,
       "answer": anTrimmed,
       "category": catTrimmed,
-      "rating": target[3].value
+      "rating": newRating
    };
    var strQuestion = JSON.stringify(updatedQuestion);
 
@@ -188,16 +195,16 @@ function formatAndPost(mongoId, target) {
   });
 };
 
-function postQuestion(target) {
-  console.log("in postQuestion");
-  var qu = target[0].value;
-  var quTrimmed = qu.trim();
-  var an = target[1].value;
-  var anTrimmed = an.trim();
-  var cat = target[2].value;
-  var catTrimmed = cat.trim();
-  debugger;
-};
+// function postQuestion(target) {
+//   console.log("in postQuestion");
+//   var qu = target[0].value;
+//   var quTrimmed = qu.trim();
+//   var an = target[1].value;
+//   var anTrimmed = an.trim();
+//   var cat = target[2].value;
+//   var catTrimmed = cat.trim();
+//   debugger;
+// };
 
 $(function() {
   'use strict';
@@ -221,7 +228,7 @@ $(function() {
 
   $('.add-area').on('click', event => {
     event.preventDefault();
-    console.log("add button clicked");
+    // console.log("add button clicked");
     $('#add-editor').modal();
   })
 
@@ -229,7 +236,7 @@ $(function() {
 
   $('.random-area').on('click', event => {
     event.preventDefault();
-    console.log("random button clicked");
+    // console.log("random button clicked");
     $.getJSON(QUESTIONS_RANDOM_ENDPOINT, displayQuestions);
   })
 
@@ -265,7 +272,7 @@ $(function() {
 
   $('#addId').submit(event => {
     event.preventDefault();
-    console.log("Insert button intercepted");
+    // console.log("Insert button intercepted");
     formatAndAdd(event.target);
   });
 
@@ -275,7 +282,7 @@ $(function() {
 
   $('#formId').submit(event => {
     event.preventDefault();
-    console.log("edit submit button intercepted");
+    // console.log("edit submit button intercepted");
     var mongoNumber = $('.dbQuestion').data('mongoId');
     formatAndPost(mongoNumber, event.target);
   });

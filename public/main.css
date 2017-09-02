@@ -5,7 +5,7 @@ body {
         "Helvetica Neue Light",
         "Lucida Grande",
         Sans-Serif;*/
-        background-color: #e6f2ff;  /* very light blue */
+        /*background-color: #e6f2ff;  /* very light blue */*/
 }
 
 
@@ -22,9 +22,10 @@ body {
   /*margin-left: 10px;*/
   /*margin-right: 10px;*/
   /*border: 1px dashed green;*/
-  Font-Family: 'Ruda', Sans-Serif;
+  Font-Family: 'Roboto Slab', Serif;
+  /*Font-Family: 'Ruda', Sans-Serif;*/
   /*Font-Family: 'Goudy Bookletter 1911', Serif;*/
-  Font-Size: 48px;
+  /*Font-Size: 16px;*/
   background-color: #f2f2f2; /* lightgray */
 }
 
@@ -35,20 +36,29 @@ img {
 }
 
 #subtitle {
-  font-size: 18px;
+  font-size: 16px;
   float: right;
   color: cornflowerblue;
-  margin: 30px 40px 10px 10px;
+  margin: 35px 40px 10px 10px;
 }
 
 .side-container {
   margin: 5px 15px 5px 5px;
   width: 20%;
+  font-family: 'Roboto Slab', Serif;
+  /*font-size: 12px;*/
   /*height: auto;*/
   float: right;
-  border-left: 1px solid gray;
+  border-left: 1px solid lightgray;
   /*border: 2px solid red;*/
 }
+
+.side-container h4 {
+  font-size: 16px;
+}
+/*h4.side-container {
+  font-size: 12px;
+}*/
 
 .nav {
   margin: 0px 5px 5px 15px;
@@ -60,7 +70,7 @@ img {
 }
 
 .add-area, .random-area {
-  margin: 5px 5px 5px 15px;
+  margin: 15px 5px 5px 15px;
   width: 95%;
   align-items: center;
 }
@@ -113,14 +123,14 @@ img {
   background-color: gray;
   cursor: pointer;
   color: white;
-  margin: 6px 6px 4px 20px;
+  margin: 6px 10px 4px 20px;
   padding: 6px 6px 4px 6px;
   transition: background-color 0.33s,
               color 0.33s;
 }
 
 .add-button, .random-button  {
-  margin: 6px 6px 4px 20px;
+  margin: 6px 10px 4px 20px;
   padding: 6px 6px 4px 6px;
 }
 
@@ -158,12 +168,12 @@ div.question-box:hover {
   margin-right: 10px;
 }
 
-.main.hr {
+/*.main.hr {
   background-color: red;
   color: blue;
   height: 2px;
   border: 5;
-}
+}*/
 
 .field-required {
   color: red;
@@ -173,12 +183,13 @@ div.question-box:hover {
   background-color: #6b7f7f;
   color: white;
   cursor: pointer;
-  font-size: 18px
+  font-size: 17px
 }
 
 .catlist {
   color: black;
-  font-family: 'Average Sans', Sans-Serif;
+  Font-Family: 'Roboto Slab', Serif;
+  /*font-family: 'Average Sans', Sans-Serif;*/
   font-size: 16px;
   margin-left: 20px;
   transition: background-color 0.33s,
