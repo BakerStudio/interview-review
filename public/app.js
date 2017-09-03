@@ -18,11 +18,11 @@ function displayQuestions(data) {
 
     //note: use templates here
     text = text + '<hr><div class="question-box">';
-    text = text + '<p id ="' + i + '"><center><b>Category: ' +
-      data[i].category + '</b></center></p>';
-    text = text + '<p>Question: ' + data[i].question + '</p>';
-    text = text + '<p>Answer: ' + data[i].answer + '</p>';
-    text = text + '<br><p>Rating: ' + data[i].rating + '</p>';
+    text = text + '<p id ="' + i + '"><center>Category: ' +
+      data[i].category + '</center></p>';
+    text = text + '<p><b>Question:</b> ' + data[i].question + '</p>';
+    text = text + '<p><b>Answer:</b> ' + data[i].answer + '</p>';
+    text = text + '<p><b>Rating:</b> ' + data[i].rating + '</p>';
     text = text + '<p><button type="button" class="del-button" id="' + i +
         '">Delete</button>';
     text = text + '<button type="button" class="change-button" id="' + i +
@@ -111,6 +111,7 @@ function formatAndAdd(target) {
       !target[1].value ||
       !target[2].value) {
         var text = "<strong>The fields cannot be blank. Please correct and resubmit.</strong>";
+        var failure = document.getElementById("failClip").play();
         $('.modal-body-add').append(text);
         $('#add-editor').modal();
         return;
@@ -136,6 +137,7 @@ function formatAndAdd(target) {
         $('.modal-body-add').find('textarea,input').val('');
         $('#addId').get(0).reset();
         $('#add-editor').modal('hide');
+        var success = document.getElementById("successClip").play();
         // $('#add-editor').remove();
         // $('.main').html(text);
         $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
@@ -159,6 +161,7 @@ function formatAndPost(mongoId, target) {
     anTrimmed == '' ||
     catTrimmed == '') {
     var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
+    var failure = document.getElementById("failClip").play();
     $('.modal-title').html(text);
     return;
   }
@@ -185,6 +188,7 @@ function formatAndPost(mongoId, target) {
           // $('.modal-dialog').html('');
           // $('.modal-body').html(text);
           $('#editor').modal('hide');
+          var success = document.getElementById("successClip").play();
           // $('.modal-title').remove();
           // $('.modal-title').html("");
           // $('.modal-body').remove();
@@ -217,6 +221,7 @@ $(function() {
 
   $(".nav").on('click', event => {
     event.preventDefault();
+    var notification = document.getElementById("noticeClip").play();
     // console.log("index clicked " + event.target.id +
     //   " " + categoryArray[event.target.id]);
     $.getJSON(QUESTIONS_CATEGORY_ENDPOINT +
@@ -229,6 +234,7 @@ $(function() {
   $('.add-area').on('click', event => {
     event.preventDefault();
     // console.log("add button clicked");
+    var notification = document.getElementById("noticeClip").play();
     $('#add-editor').modal();
   })
 
@@ -237,6 +243,7 @@ $(function() {
   $('.random-area').on('click', event => {
     event.preventDefault();
     // console.log("random button clicked");
+    var notification = document.getElementById("noticeClip").play();
     $.getJSON(QUESTIONS_RANDOM_ENDPOINT, displayQuestions);
   })
 
@@ -251,6 +258,7 @@ $(function() {
         url: QUESTIONS_DELETE_ENDPOINT + questionsArray[event.target.id]._id,
         type: 'DELETE',
         success: function(result) {
+            var success = document.getElementById("successClip").play();
             // console.log("Document deleted");
             $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
             var text = '';
