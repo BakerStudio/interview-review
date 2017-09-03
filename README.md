@@ -1,7 +1,10 @@
 ## Interview Review
 
+
+
 - CI tests are executed on Travis
-- App deployed to https://gentle-island-84200.herokuapp.com/
+- Mongo database is deployed on mLab
+- App is deployed to https://gentle-island-84200.herokuapp.com/
 
 ### API Documentation
 
@@ -74,8 +77,7 @@ Response body
 
 | HTTP |Endpoint| Description                                               |
 |:----:|:-------|:----------------------------------------------------------|
-|GET | /category-count | List of the number of question sets in each category. The returned
-response array corresponds to the list of categories.|
+|GET | /category-count | List of the number of question sets in each category. The returned response array corresponds to the list of categories.|
 
 Example
 ```
@@ -136,8 +138,7 @@ Response body
 
 | HTTP |Endpoint| Description                                               |
 |:----:|:-------|:----------------------------------------------------------|
-|GET | /random | List of randomly selected question sets from all of the categories in
-the database. The sample size is set to 3. Note that with a small database there may be duplicates in the returned documents.|
+|GET | /random | List of randomly selected question sets from all of the categories in the database. The sample size is set to 3. Note that with a small database there may be duplicates in the returned documents.|
 
 Example
 ```
@@ -207,8 +208,7 @@ Response body
 
 | HTTP |Endpoint| Description                                               |
 |:----:|:-------|:----------------------------------------------------------|
-|POST | /:id| Update the fields in an existing question set. Note the response body returns
-the question set in its state prior to the request body's updates being applied.|
+|POST | /:id| Update the fields in an existing question set. Note the response body returns the question set in its state prior to the request body's updates being applied.|
 
 Example
 ```
@@ -259,30 +259,3 @@ Response body
 }
 ```
 ---
-
-
-
-
-
-3.2.4 CI and First Deployment
-Task checklist
-- [x] Create project folder
-- [x] Install express
-- [x] Create static file folder (public)
-- [x] Create index.html file
-- [x] Create server.js file (npm init)
-- [x] Run server
-- [x] Save & commit to git, push to GitHub
-- [x] Install mocha test dependencies (chai also)
-- [x] Add test to package.json
-- [x] Add web page test in test/test.js
-- [x] Update server.js to start/stop from test module
-- [x] Test
-- [x] Merge and push to GitHub
-- [x] Configure for Travis CI (.travis.yml)
-- [x] Push to GitHub
-- [x] Test with Travis command line: Success!
-- [x] Create Heroku app, update .travis.yml
-- [x] Push to GitHub
-- [x] Watch Travis dashboard: Success
-- [x] Shell app deployed to https://gentle-island-84200.herokuapp.com/
