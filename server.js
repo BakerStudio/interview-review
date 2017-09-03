@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const responseLimit = 200;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -38,8 +39,8 @@ mongoose.Promise = global.Promise;
 app.get('/questions', (req, res, next) => {
   // let query = req.query || {};
   let query = {};
-  let limit = 20;
-  Question.find(query).limit(limit)
+  // let limit = 20;
+  Question.find(query).limit(responseLimit)
     .then(questions => {
       // res.status(status).send(questions);
       res.status(200).send(questions);
@@ -52,8 +53,8 @@ app.get('/questions', (req, res, next) => {
 
 app.get('/questions/:cat', (req, res, next) => {
   let cat = req.params.cat;
-  let limit = 10;
-  Question.find({'category': cat}).limit(limit)
+  // let limit = 10;
+  Question.find({'category': cat}).limit(responseLimit)
     .then(questions => {
       res.status(200).send(questions);
       next()
@@ -117,16 +118,16 @@ app.get('/category-count', (req, res, next) => {
   })
 })
 
-app.get('/list', (req, res, next) => {
-  query = req.query;
-  Question.find(query).then(questions => {
-      res.status(200).send(questions);
-      next();
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
-});
+// app.get('/list', (req, res, next) => {
+//   query = req.query;
+//   Question.find(query).then(questions => {
+//       res.status(200).send(questions);
+//       next();
+//     })
+//     .catch(err => {
+//       res.status(500).send(err);
+//     });
+// });
 
 app.post('/post', (req, res, next) => {
   let data = req.body;

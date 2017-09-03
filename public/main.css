@@ -1,4 +1,4 @@
-body {
+/*body {*/
   /*font-family: "Roboto",
         "Open Sans",
         "HelveticaNeue-Light",
@@ -6,7 +6,7 @@ body {
         "Lucida Grande",
         Sans-Serif;*/
         /*background-color: #e6f2ff;  /* very light blue */*/
-}
+/*}*/
 
 
 .content {
@@ -136,7 +136,7 @@ img {
   cursor: pointer;
   color: white;
   margin: 6px 10px 4px 20px;
-  padding: 6px 6px 4px 6px;
+  padding: 6px 6px 0px 6px;
   transition: background-color 0.33s,
               color 0.33s;
 }
@@ -195,7 +195,9 @@ div.question-box:hover {
   background-color: #6b7f7f;
   color: white;
   cursor: pointer;
-  font-size: 17px
+  font-size: 17px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 .catlist {
@@ -204,6 +206,8 @@ div.question-box:hover {
   /*font-family: 'Average Sans', Sans-Serif;*/
   font-size: 16px;
   margin-left: 20px;
+  /*padding-top: 3px;*/
+  /*padding-bottom: 3px;*/
   transition: background-color 0.33s,
               color 0.33s,
               font-size 0.33s;
