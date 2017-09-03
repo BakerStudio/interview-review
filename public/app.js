@@ -66,20 +66,78 @@ function displayModal(id) {
   var title = 'Category: ' + questionsArray[id].category;
   $('.modal-title').html(title);
   var rating = !questionsArray[id].rating ? "not present" : questionsArray[id].rating;
+  console.log("old rating: " + rating);
+  var beginnerChecked = '';
+  var intermediateChecked = '';
+  var advancedChecked = '';
+  var guruChecked = '';
+  switch (rating) {
+    case 'beginner':
+      beginnerChecked = 'checked="checked"';
+      break;
+    case 'intermediate':
+      intermediateChecked = 'checked="checked"';
+      break;
+    case 'advanced':
+      advancedChecked = 'checked="checked"';
+      break;
+    case 'guru-level':
+      guruChecked = 'checked="checked"';
+      break;
+    }
+
+  var dbId = questionsArray[id]._id;
+  // console.log("id = " + id);
+  var question = questionsArray[id].question;
+  // console.log("q = " + question);
+  var answer = questionsArray[id].answer;
+  var category = questionsArray[id].category;
+
+  // Use template literals where text is surrounded by backticks and
+  // tokens are designated by ${xxxx}. Not one "+" in sight!
+
   var text =
-      '<div class="form-group dbQuestion" data-mongo-id="' + questionsArray[id]._id + '">' +
-      '<label for="question" class="control-label field-required">Question</label>' +
-      '<textarea spellcheck="true" name="question" class="form-control" rows="3" required="true">' +
-      questionsArray[id].question + '</textarea></div>' +
-    '<div class="form-group">' +
-      '<label for="answer" class="control-label field-required">Answer</label>' +
-      '<textarea spellcheck="true" name="answer" class="form-control" rows="3">' +
-      questionsArray[id].answer + '</textarea></div>' +
-    '<div class="form-group">' +
-      '<label for="category" class="control-label field-required">Category</label>' +
-      '<input type="text" name="category" class="form-control" value="' + questionsArray[id].category + '"></div>' +
-    '<div class="form-group">' +
-      '<label for="rating" class="control-label"><p>Current rating: ' + rating + '</p></label>' +
+    `<div class="form-group dbQuestion" data-mongo-id="${dbId}">
+      <label for="question" class="control-label field-required">Question</label>
+      <textarea spellcheck="true" name="question" class="form-control" rows="3" required="true">${question}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="answer" class="control-label field-required">Answer</label>
+      <textarea spellcheck="true" name="answer" class="form-control" rows="3">${answer}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="category" class="control-label field-required">Category</label>
+      <input type="text" name="category" class="form-control" value="${category}">
+    </div>
+
+    <div class="form-group">
+      <label for="rating" class="control-label">
+        <p>Rating: </p>
+      </label>
+      <center>
+        <label class="radio-inline" id="beg-button"><input type="radio" name="ratebutton" value="beginner" ${beginnerChecked}>beginner</label>
+        <label class="radio-inline" id="int-button"><input type="radio" name="ratebutton"  value="intermediate" ${intermediateChecked}>intermediate</label>
+        <label class="radio-inline" id="adv-button"><input type="radio" name="ratebutton" value="advanced" ${advancedChecked}>advanced</label>
+        <label class="radio-inline" id="guru-button"><input type="radio" name="ratebutton" value="guru-level" ${guruChecked}>guru-level</label>
+      </center>
+    </div>`;
+
+  // var text =
+  //     '<div class="form-group dbQuestion" data-mongo-id="' + questionsArray[id]._id + '">' +
+  //     '<label for="question" class="control-label field-required">Question</label>' +
+  //     '<textarea spellcheck="true" name="question" class="form-control" rows="3" required="true">' +
+  //     questionsArray[id].question + '</textarea></div>' +
+  //   '<div class="form-group">' +
+  //     '<label for="answer" class="control-label field-required">Answer</label>' +
+  //     '<textarea spellcheck="true" name="answer" class="form-control" rows="3">' +
+  //     questionsArray[id].answer + '</textarea></div>' +
+  //   '<div class="form-group">' +
+  //     '<label for="category" class="control-label field-required">Category</label>' +
+  //     '<input type="text" name="category" class="form-control" value="' + questionsArray[id].category + '"></div>' +
+  //   '<div class="form-group">' +
+  //     '<label for="rating" class="control-label"><p>Current rating: ' + rating + '</p></label>' +
       // '<select name="rating" size="1">' +
       // '<option selected>Select one...</option>' +
       // '<option value="beginner">beginner</option>' +
@@ -87,12 +145,12 @@ function displayModal(id) {
       // '<option value="advanced">advanced</option>' +
       // '<option value="guru-level">guru-level</option>' +
       // '</select></div>';
-      '<center><label class="radio-inline" id="beg-button">' +
-      '<input type="radio" name="ratebutton" value="beginner">beginner</label>' +
-      '<label class="radio-inline" id="int-button"><input type="radio"' + 'name="ratebutton"  value="intermediate">intermediate</label>' +
-      '<label class="radio-inline" id="adv-button"><input type="radio"' +
-      'name="ratebutton" value="advanced">advanced</label>' +
-      '<label class="radio-inline" id="guru-button"><input type="radio"' + 'name="ratebutton" value="guru-level">guru-level</label></center></div>';
+      // '<center><label class="radio-inline" id="beg-button">' +
+      // '<input type="radio" name="ratebutton" value="beginner" checked="checked">beginner</label>' +
+      // '<label class="radio-inline" id="int-button"><input type="radio"' + 'name="ratebutton"  value="intermediate">intermediate</label>' +
+      // '<label class="radio-inline" id="adv-button"><input type="radio"' +
+      // 'name="ratebutton" value="advanced">advanced</label>' +
+      // '<label class="radio-inline" id="guru-button"><input type="radio"' + 'name="ratebutton" value="guru-level">guru-level</label></center></div>';
 
   $('.modal-body').html(text);
   $('#editor').modal();
@@ -149,6 +207,7 @@ function formatAndPost(mongoId, target) {
 
   //  Determine which radio button was selected
   var newRating = document.querySelector('input[name="ratebutton"]:checked').value;
+  console.log("Rating value: " + newRating);
 
   var qu = target[0].value;
   var quTrimmed = qu.trim();
