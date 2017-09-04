@@ -1,16 +1,18 @@
-let QUESTIONS_ENDPOINT = '/questions';
-let QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
-let QUESTIONS_RANDOM_ENDPOINT = '/random';
-let QUESTIONS_DELETE_ENDPOINT = '/';
-let CATEGORIES_ENDPOINT = '/categories';
-let CATEGORY_COUNT_ENDPOINT = '/category-count';
-let QUESTION_UPDATE_ENDPOINT = '/';
-let QUESTION_CREATE_ENDPOINT = '/post';
+const QUESTIONS_ENDPOINT = '/questions';
+const QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
+const QUESTIONS_RANDOM_ENDPOINT = '/random';
+const QUESTIONS_DELETE_ENDPOINT = '/';
+const CATEGORIES_ENDPOINT = '/categories';
+const CATEGORY_COUNT_ENDPOINT = '/category-count';
+const QUESTION_UPDATE_ENDPOINT = '/';
+const QUESTION_CREATE_ENDPOINT = '/post';
 let categoryArray = [];
 let questionsArray = [];
 
-
 function displayQuestions(data) {
+
+  //  Display the question set specified in the parameter
+
   var text = '';
   questionsArray = data;
 
@@ -31,11 +33,17 @@ function displayQuestions(data) {
 }
 
 function displayCategories(data) {
+
+  //  Display the right side column, where the user can
+  //  select from several actions to take: add a question,
+  //  display a random set of questions, or select one of
+  //  the existing categories.
+
   var text = '';
   categoryArray = data;
 
   function categoryCount(catCountData) {
-    text = '<div><h4>Select a category</h4></div>';
+    text = `<div><h4>Select a category</h4></div>`;
     for (var i = 0; i < data.length; i++) {
       text = text + `
         <p class="catlist" id="${i}">${data[i]} (${catCountData[i]})`;
@@ -51,13 +59,19 @@ function displayCategories(data) {
     $('.random-area').html(text);
 
   }
-
   $.getJSON(CATEGORY_COUNT_ENDPOINT, categoryCount);
 }
 
 function displayModal(id) {
+
+  //  Display the selected question set in the modal,
+  //  allowing the user to update any or all the fields.
+
   var title = 'Category: ' + questionsArray[id].category;
   $('.modal-title').html(title);
+
+  //  Create flags so that the radio button for the current rating
+  //  will be checked (highlighted)
 
   var beginnerChecked = questionsArray[id].rating === "beginner" ? 'checked="checked"' : '';
   var intermediateChecked = questionsArray[id].rating === "intermediate" ? 'checked="checked"' : '';
@@ -67,7 +81,7 @@ function displayModal(id) {
   var text =
     `<div class="form-group dbQuestion" data-mongo-id="${questionsArray[id]._id}">
       <label for="question" class="control-label field-required">Question</label>
-      <textarea spellcheck="true" name="question" class="form-control" rows="3" required="true">${questionsArray[id].question}</textarea>
+      <textarea spellcheck="true" name="question" class="form-control" rows="3">${questionsArray[id].question}</textarea>
     </div>
 
     <div class="form-group">
@@ -98,8 +112,13 @@ function displayModal(id) {
 
 function formatAndAdd(target) {
 
+  //  Edit the fields returned from the modal. Question, answer
+  //  and category are required. If present then write the
+  //  question set to the database and reset the screen
+  //  for the next user action.
+
   if (!target[0].value || !target[1].value || !target[2].value) {
-    var text = "<strong>The fields cannot be blank. Please correct and resubmit.</strong>";
+    var text = "<strong>The question, answer and category fields cannot be blank. Please correct and resubmit.</strong>";
     var failure = document.getElementById("failClip").play();
     $('.modal-body-add').append(text);
     $('#add-editor').modal();
@@ -132,13 +151,15 @@ function formatAndAdd(target) {
 
 function formatAndPost(mongoId, target) {
 
+  //  Edit the fields returned from the modal. Question,
+  //  answer and category fields are required. If all are
+  //  present then write the question set to the database
+  //  and reset the screen for the next user action.
+
   var newRating = document.querySelector('input[name="ratebutton"]:checked').value;
-  var qu = target[0].value;
-  var quTrimmed = qu.trim();
-  var an = target[1].value;
-  var anTrimmed = an.trim();
-  var cat = target[2].value;
-  var catTrimmed = cat.trim();
+  var quTrimmed = target[0].value.trim();
+  var anTrimmed = target[1].value.trim();
+  var catTrimmed = target[2].value.trim();
 
   if (quTrimmed == '' ||
     anTrimmed == '' ||
@@ -155,7 +176,6 @@ function formatAndPost(mongoId, target) {
     "rating": newRating
   };
   var strQuestion = JSON.stringify(updatedQuestion);
-
   $.ajax({
     url: QUESTION_UPDATE_ENDPOINT + mongoId,
     type: "POST",
@@ -165,7 +185,6 @@ function formatAndPost(mongoId, target) {
     success: function(result) {
       $('#formId').get(0).reset();
       var text = '';
-      // questionsArray = [];
       $('.modal-body').find('textarea,input').val('');
       $('#editor').modal('hide');
       var success = document.getElementById("successClip").play();
@@ -179,7 +198,8 @@ function formatAndPost(mongoId, target) {
 $(function() {
   'use strict';
 
-  //  Display the categories in the right-hand nav column
+  //  Populate the right-hand column with the add button,
+  //  the random button and the list of categories
 
   $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
 
@@ -227,20 +247,25 @@ $(function() {
   })
 
   //  Register event hander for clicking on a
-  //  questions's update button
+  //  question's edit button
 
   $('.main').on('click', '.change-button', event => {
     event.preventDefault();
     displayModal(event.target.id);
   });
 
+  //  Register an event handler for the submitting a
+  //  new question when the add button of the modal has
+  //  been clicked
+
   $('#addId').submit(event => {
     event.preventDefault();
     formatAndAdd(event.target);
   });
 
-  // Register an event handler when a question was edited and is
-  // ready to submit
+  // Register an event handler when a question has been
+  // updated and the modal's edit button clicked.
+  // MongoNumber is the database's unique key.
 
   $('#formId').submit(event => {
     event.preventDefault();
