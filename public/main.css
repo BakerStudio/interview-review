@@ -136,9 +136,9 @@ div.question-box:hover {
 .catlist {
   color: black;
   Font-Family: 'Roboto Slab', Serif;
-  font-size: 17px;
+  font-size: 18px;
   margin-left: 20px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  transition: background-color 0.33s, color 0.33s, font-size 0.33s;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  transition: background-color 0.33s, color 0.33s;
 }

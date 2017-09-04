@@ -5,44 +5,25 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const Promise = require('bluebird');
-// const multer = require('multer')
-app.use(morgan(':date[iso] :url :method :status :res[content-length] - :response-time'))
-app.use(express.static('public'));
 const mongoose = require('mongoose');
 const {
   DATABASE_URL,
   PORT
-  } = require('./config');
+} = require('./config');
 const {
   Question
-  } = require('./models/question-model');
+} = require('./models/question-model');
+
+app.use(morgan(':date[iso] :url :method :status :res[content-length] - :response-time'))
+app.use(express.static('public'));
 app.use(bodyParser.json());
-// app.use(multer()); // for parsing multipart/form-data
+
 mongoose.Promise = global.Promise;
 
-// const logRequest = (req, res, next) => {
-//   const logObj = {
-//     time: (new Date()).toTimeString(),
-//     method: req.method,
-//     hostname: req.hostname,
-//     path: req.path,
-//     "content type": req.get('Content-Type'),
-//     query: JSON.stringify(req.query),
-//     body: JSON.stringify(req.body)
-//   }
-//   Object.keys(logObj).forEach(key => console.log(`request ${key}: ${logObj[key]}`));
-//   next();
-// };
-//
-// app.all('/', logRequest);
-
 app.get('/questions', (req, res, next) => {
-  // let query = req.query || {};
   let query = {};
-  // let limit = 20;
   Question.find(query).limit(responseLimit)
     .then(questions => {
-      // res.status(status).send(questions);
       res.status(200).send(questions);
       next()
     })
@@ -53,8 +34,9 @@ app.get('/questions', (req, res, next) => {
 
 app.get('/questions/:cat', (req, res, next) => {
   let cat = req.params.cat;
-  // let limit = 10;
-  Question.find({'category': cat}).limit(responseLimit)
+  Question.find({
+      'category': cat
+    }).limit(responseLimit)
     .then(questions => {
       res.status(200).send(questions);
       next()
@@ -65,7 +47,11 @@ app.get('/questions/:cat', (req, res, next) => {
 })
 
 app.get('/random', (req, res, next) => {
-  Question.aggregate({$sample: {size: 3}})
+  Question.aggregate({
+      $sample: {
+        size: 3
+      }
+    })
     .then(questions => {
       res.status(200).send(questions);
       next()
@@ -78,7 +64,8 @@ app.get('/random', (req, res, next) => {
 app.get('/count', (req, res, next) => {
   Question.count()
     .then(count => {
-      res.send(200, count);
+      // res.status(200).send(count);
+      res.sendStatus(200, count);
       next()
     })
     .catch(err => {
@@ -115,25 +102,13 @@ app.get('/category-count', (req, res, next) => {
     })
     .catch(err => {
       res.status(500).send(err);
-  })
+    })
 })
-
-// app.get('/list', (req, res, next) => {
-//   query = req.query;
-//   Question.find(query).then(questions => {
-//       res.status(200).send(questions);
-//       next();
-//     })
-//     .catch(err => {
-//       res.status(500).send(err);
-//     });
-// });
 
 app.post('/post', (req, res, next) => {
   let data = req.body;
   Question.create(req.body).then(data => {
       res.status(201).json(req.body);
-      // next();
     })
     .catch(err => {
       res.status(500, err);
@@ -141,15 +116,6 @@ app.post('/post', (req, res, next) => {
 })
 
 app.post('/:id', (req, res, next) => {
-  // let id = req.params.id;
-  // var updatedQuestion = req.body;
-  // debugger;
-  // console.log("in app.put route, id= " + id);
-  // console.log("req params " + JSON.stringify(req.params));
-  // console.log("req body " + JSON.stringify(req.body));
-  // console.log("req.params.id: " + JSON.stringify(req.params.id));
-  // console.log("updatedQuestion: " + JSON.stringify(updatedQuestion));
-
   Question.findByIdAndUpdate(req.params.id, req.body).then(questions => {
       res.status(201).send(questions);
       next();
@@ -215,8 +181,6 @@ process.on('SIGINT', function() {
 if (require.main === module) {
   runServer().catch(err => console.error(err))
 }
-
-//  remember to start the db server locally for CI tests
 
 module.exports = {
   app,
