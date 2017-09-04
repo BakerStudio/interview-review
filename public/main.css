@@ -9,7 +9,8 @@
   width: 100%;
   height: 100px;
   Font-Family: 'Roboto Slab', Serif;
-  background-color: #f2f2f2; /* lightgray */
+  background-color: #f2f2f2;
+  /* lightgray */
 }
 
 img {
@@ -69,16 +70,18 @@ img {
   overflow: scroll;
 }
 
-.change-button:hover, .del-button:hover{
+.change-button:hover, .del-button:hover {
   background-color: gray;
   color: white;
-  padding: 6px 6px 6px 6px;*/
+  padding: 6px 6px 6px 6px;
+  */
 }
 
 .change-button, .del-button {
   margin-right: 10px;
   float: right;
-  padding: 6px 6px 4px 6px;*/
+  padding: 6px 6px 4px 6px;
+  */
 }
 
 .add-button:hover, .random-button:hover {
@@ -87,13 +90,14 @@ img {
   color: white;
   margin: 6px 10px 4px 20px;
   padding: 6px 6px 0px 6px;
-  transition: background-color 0.33s,
-              color 0.33s;
 }
 
-.add-button, .random-button  {
+.add-button, .random-button {
   margin: 6px 10px 4px 20px;
-  padding: 6px 6px 4px 6px;
+  padding: 6px 6px 0px 6px;
+  color: black;
+  background-color: lightgray;
+  transition: background-color 0.33s, padding 0.33s, color 0.33s;
 }
 
 div.question-box {
@@ -104,7 +108,8 @@ div.question-box {
 }
 
 div.question-box:hover {
-  background-color: #f2f2f2; /* lightgray */
+  background-color: #f2f2f2;
+  /* lightgray */
 }
 
 .form-group {
@@ -123,7 +128,7 @@ div.question-box:hover {
   background-color: #6b7f7f;
   color: white;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 18px;
   padding-bottom: 0px;
   padding-top: 0px;
 }
@@ -131,9 +136,9 @@ div.question-box:hover {
 .catlist {
   color: black;
   Font-Family: 'Roboto Slab', Serif;
-  font-size: 16px;
+  font-size: 17px;
   margin-left: 20px;
-  transition: background-color 0.33s,
-              color 0.33s,
-              font-size 0.33s;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  transition: background-color 0.33s, color 0.33s, font-size 0.33s;
 }

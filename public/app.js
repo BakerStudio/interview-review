@@ -24,10 +24,10 @@ function displayQuestions(data) {
     text = text + '<p><b>Answer:</b> ' + data[i].answer + '</p>';
     text = text + '<p><b>Rating:</b> ' + data[i].rating + '</p>';
     text = text + '<p><button type="button" class="del-button" id="' + i +
-        '">Delete</button>';
+      '">Delete</button>';
     text = text + '<button type="button" class="change-button" id="' + i +
       '">Edit</button></p></div><br>';
-    }
+  }
   $('.main').html(text);
 }
 
@@ -37,7 +37,7 @@ function displayCategories(data) {
 
   function categoryCount(catCountData) {
     text = '<div><h4>Select a category</h4></div>';
-    for (var i=0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       text = text + '<p class="catlist" id="' + i + '">' + data[i] +
         ' (' + catCountData[i] + ')';
       // if (catCountData[i] > 1) {
@@ -52,10 +52,10 @@ function displayCategories(data) {
     // text = '<div class="add-area"><h4>Add a question</h4>' +
     //     '<button class="add-button">Add</button></div>';
     text = '<p><h4>Add a question</h4>' +
-            '<button class="add-button">Add</button></p>';
+      '<button class="add-button">Add</button></p>';
     $('.add-area').html(text);
     text = '<p><h4>Display random questions</h4>' +
-            '<button class="random-button">Random</button></p>';
+      '<button class="random-button">Random</button></p>';
     $('.random-area').html(text);
   }
 
@@ -84,7 +84,7 @@ function displayModal(id) {
     case 'guru-level':
       guruChecked = 'checked="checked"';
       break;
-    }
+  }
 
   var dbId = questionsArray[id]._id;
   // console.log("id = " + id);
@@ -94,7 +94,7 @@ function displayModal(id) {
   var category = questionsArray[id].category;
 
   // Use template literals where text is surrounded by backticks and
-  // tokens are designated by ${xxxx}. Not one "+" in sight!
+  // tokens are designated by ${xxxx}. Not one damn "+" in sight!
 
   var text =
     `<div class="form-group dbQuestion" data-mongo-id="${dbId}">
@@ -138,19 +138,19 @@ function displayModal(id) {
   //     '<input type="text" name="category" class="form-control" value="' + questionsArray[id].category + '"></div>' +
   //   '<div class="form-group">' +
   //     '<label for="rating" class="control-label"><p>Current rating: ' + rating + '</p></label>' +
-      // '<select name="rating" size="1">' +
-      // '<option selected>Select one...</option>' +
-      // '<option value="beginner">beginner</option>' +
-      // '<option value="intermediate">intermediate</option>' +
-      // '<option value="advanced">advanced</option>' +
-      // '<option value="guru-level">guru-level</option>' +
-      // '</select></div>';
-      // '<center><label class="radio-inline" id="beg-button">' +
-      // '<input type="radio" name="ratebutton" value="beginner" checked="checked">beginner</label>' +
-      // '<label class="radio-inline" id="int-button"><input type="radio"' + 'name="ratebutton"  value="intermediate">intermediate</label>' +
-      // '<label class="radio-inline" id="adv-button"><input type="radio"' +
-      // 'name="ratebutton" value="advanced">advanced</label>' +
-      // '<label class="radio-inline" id="guru-button"><input type="radio"' + 'name="ratebutton" value="guru-level">guru-level</label></center></div>';
+  // '<select name="rating" size="1">' +
+  // '<option selected>Select one...</option>' +
+  // '<option value="beginner">beginner</option>' +
+  // '<option value="intermediate">intermediate</option>' +
+  // '<option value="advanced">advanced</option>' +
+  // '<option value="guru-level">guru-level</option>' +
+  // '</select></div>';
+  // '<center><label class="radio-inline" id="beg-button">' +
+  // '<input type="radio" name="ratebutton" value="beginner" checked="checked">beginner</label>' +
+  // '<label class="radio-inline" id="int-button"><input type="radio"' + 'name="ratebutton"  value="intermediate">intermediate</label>' +
+  // '<label class="radio-inline" id="adv-button"><input type="radio"' +
+  // 'name="ratebutton" value="advanced">advanced</label>' +
+  // '<label class="radio-inline" id="guru-button"><input type="radio"' + 'name="ratebutton" value="guru-level">guru-level</label></center></div>';
 
   $('.modal-body').html(text);
   $('#editor').modal();
@@ -166,14 +166,14 @@ function addQuestionModal() {
 function formatAndAdd(target) {
 
   if (!target[0].value ||
-      !target[1].value ||
-      !target[2].value) {
-        var text = "<strong>The fields cannot be blank. Please correct and resubmit.</strong>";
-        var failure = document.getElementById("failClip").play();
-        $('.modal-body-add').append(text);
-        $('#add-editor').modal();
-        return;
-      }
+    !target[1].value ||
+    !target[2].value) {
+    var text = "<strong>The fields cannot be blank. Please correct and resubmit.</strong>";
+    var failure = document.getElementById("failClip").play();
+    $('.modal-body-add').append(text);
+    $('#add-editor').modal();
+    return;
+  }
   var addQuestion = {
     "question": target[0].value.trim(),
     "answer": target[1].value.trim(),
@@ -188,19 +188,19 @@ function formatAndAdd(target) {
     contentType: 'application/json',
     data: strAdd,
     success: function(result) {
-        var text = '';
-        questionsArray = [];
-        // $('.modal-body').html(text);
-        // $('#add-editor').modal('hide');
-        $('.modal-body-add').find('textarea,input').val('');
-        $('#addId').get(0).reset();
-        $('#add-editor').modal('hide');
-        var success = document.getElementById("successClip").play();
-        // $('#add-editor').remove();
-        // $('.main').html(text);
-        $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
-      }
-    })
+      var text = '';
+      questionsArray = [];
+      // $('.modal-body').html(text);
+      // $('#add-editor').modal('hide');
+      $('.modal-body-add').find('textarea,input').val('');
+      $('#addId').get(0).reset();
+      $('#add-editor').modal('hide');
+      var success = document.getElementById("successClip").play();
+      // $('#add-editor').remove();
+      // $('.main').html(text);
+      $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
+    }
+  })
 }
 
 function formatAndPost(mongoId, target) {
@@ -225,36 +225,36 @@ function formatAndPost(mongoId, target) {
     return;
   }
   var updatedQuestion = {
-      "question": quTrimmed,
-      "answer": anTrimmed,
-      "category": catTrimmed,
-      "rating": newRating
-   };
-   var strQuestion = JSON.stringify(updatedQuestion);
+    "question": quTrimmed,
+    "answer": anTrimmed,
+    "category": catTrimmed,
+    "rating": newRating
+  };
+  var strQuestion = JSON.stringify(updatedQuestion);
 
   $.ajax({
-      url: QUESTION_UPDATE_ENDPOINT + mongoId,
-      type: "POST",
-      dataType: 'json',
-      contentType: 'application/json',
-      data: strQuestion,
-      success: function(result) {
-          // console.log("Document updated");
-          $('#formId').get(0).reset();
-          var text = '';
-          questionsArray = [];
-          $('.modal-body').find('textarea,input').val('');
-          // $('.modal-dialog').html('');
-          // $('.modal-body').html(text);
-          $('#editor').modal('hide');
-          var success = document.getElementById("successClip").play();
-          // $('.modal-title').remove();
-          // $('.modal-title').html("");
-          // $('.modal-body').remove();
-          $('.main').html(text);
+    url: QUESTION_UPDATE_ENDPOINT + mongoId,
+    type: "POST",
+    dataType: 'json',
+    contentType: 'application/json',
+    data: strQuestion,
+    success: function(result) {
+      // console.log("Document updated");
+      $('#formId').get(0).reset();
+      var text = '';
+      questionsArray = [];
+      $('.modal-body').find('textarea,input').val('');
+      // $('.modal-dialog').html('');
+      // $('.modal-body').html(text);
+      $('#editor').modal('hide');
+      var success = document.getElementById("successClip").play();
+      // $('.modal-title').remove();
+      // $('.modal-title').html("");
+      // $('.modal-body').remove();
+      $('.main').html(text);
 
-          $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
-      }
+      $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
+    }
   });
 };
 
@@ -312,17 +312,17 @@ $(function() {
   $('.main').on('click', '.del-button', event => {
     event.preventDefault();
     // console.log('question delete ' + event.target.id +
-        // questionsArray[event.target.id]._id);
+    // questionsArray[event.target.id]._id);
     $.ajax({
-        url: QUESTIONS_DELETE_ENDPOINT + questionsArray[event.target.id]._id,
-        type: 'DELETE',
-        success: function(result) {
-            var success = document.getElementById("successClip").play();
-            // console.log("Document deleted");
-            $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
-            var text = '';
-            $('.main').html(text);
-        }
+      url: QUESTIONS_DELETE_ENDPOINT + questionsArray[event.target.id]._id,
+      type: 'DELETE',
+      success: function(result) {
+        var success = document.getElementById("successClip").play();
+        // console.log("Document deleted");
+        $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
+        var text = '';
+        $('.main').html(text);
+      }
     });
   })
 
