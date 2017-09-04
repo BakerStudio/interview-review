@@ -2,7 +2,9 @@
 
 {"question":"What did you learn yesterday/this week?","answer":"You should be learning something new every day. ABL = Always Be Learning.","category":"General","qsource":"https://github.com/h5bp/Front-end-Developer-Interview-Questions","asource":"Bill Baker","rating":"beginner"}
 
-{"question":"What is a typical use case for anonymous functions?","answer":"Anonymous functions aren’t given a name in the same way as normal functions. Not having to set a name for an anonymous function is just a convenience.","category":"JS","qsource":"https://github.com/h5bp/Front-end-Developer-Interview-Questions","asource":"http://helephant.com/2008/08/23/javascript-anonymous-functions","rating":"beginner"}
+{"question":"What is a typical use case for anonymous functions?","answer":"Anonymous functions aren’t given a name in the same way as normal functions. Not having to set a name for an anonymous function is a convenience. They are typically used as callback functions in NodeJS servers.",
+"category":"JS",
+"rating":"beginner"}
 
 {"question":"What is the difference between full standards mode, almost standards mode and quirks mode?","answer":"Full standards mode follows the W3C HTML and CSS specifications while quirks mode allows variation from the standards to fit legacy browser versions. Almost standards mode allows a fewer number of variations from the standards.","category":"HTML","qsource":"https://github.com/h5bp/Front-end-Developer-Interview-Questions","asource":"http://study-for-exam.blogspot.com/2016/01/whats-difference-between-standards-mode.html","rating":"beginner"}
 
@@ -106,12 +108,12 @@
 "rating": "intermediate"}
 
 {"question": "What are 'properties'?",
-"answer": "Property: JavaScript is designed on a simple object-based paradigm. An object is a collection of properties, and a property is an association between a name (or key) and a value. A property's value can be a function, in which case the property is known as a method.<br>A JavaScript object is a set of key/value pairs. Each pair is called a 'property'.",
+"answer": "Property: JavaScript is designed on a simple object-based paradigm. An object is a collection of properties, and a property is an association between a name (or key) and a value. A property's value can be a function, in which case the property is known as a method.<br><br>A JavaScript object is a set of key/value pairs. Each pair is called a 'property'.",
 "category": "JS",
 "rating": "intermediate"}
 
 {"question": "What is 'middleware'?",
-"answer": "Middleware is an approach to server-side web development is that it encourages us to write modular, reusable, functional code. Middleware is the code that sits between the request handler and the response (or next).<br>Crucially, all middleware functions must do one of two things: either return a response or call next().",
+"answer": "Middleware is an approach to server-side web development is that it encourages us to write modular, reusable, functional code. Middleware is the code that sits between the request handler and the response (or next).<br><br>Crucially, all middleware functions must do one of two things: either return a response or call next().",
 "category": "NodeJS",
 "rating": "intermediate"}
 
@@ -201,7 +203,7 @@
 "rating": "advanced"}
 
 {"question": "What is a “MIME type”, what does it consist of, and what is it used for? Provide an example.",
-"answer": "MIME is an acronym for Multi-purpose Internet Mail Extensions. It is used as a standard way of classifying file types over the Internet.<br>Web servers and browsers have a defined list of MIME types, which facilitates transfer of files of a known type, irrespective of operating system or browser.<br>A MIME type actually has two parts: a type and a subtype that are separated by a slash (/). For example, the MIME type for Microsoft Word files is application/msword (i.e., type is application and the subtype is msword).",
+"answer": "MIME is an acronym for Multi-purpose Internet Mail Extensions. It is used as a standard way of classifying file types over the Internet.<br><br>Web servers and browsers have a defined list of MIME types, which facilitates transfer of files of a known type, irrespective of operating system or browser.<br><br>A MIME type actually has two parts: a type and a subtype that are separated by a slash (/). For example, the MIME type for Microsoft Word files is application/msword (i.e., type is application and the subtype is msword).",
 "category": "HTML",
 "rating": "intermediate"}
 
@@ -281,7 +283,7 @@
 "rating": "beginner"}
 
 {"question": "What tools can be used to assure consistent style?",
-"answer": "Linters:<br>JSLint<br>JSHint<br>ESLint<br>JSCS",
+"answer": "Linters:<br><br>JSLint<br><br>JSHint<br><br>ESLint",
 "category": "NodeJS",
 "rating": "beginner"}
 

@@ -3,7 +3,6 @@ const app = express();
 const responseLimit = 200;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const {
@@ -14,7 +13,7 @@ const {
   Question
 } = require('./models/question-model');
 
-app.use(morgan(':date[iso] :url :method :status :res[content-length] - :response-time'))
+app.use(morgan(':date[iso] :url :method :status :res[content-length] - :response-time'));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -25,12 +24,12 @@ app.get('/questions', (req, res, next) => {
   Question.find(query).limit(responseLimit)
     .then(questions => {
       res.status(200).send(questions);
-      next()
+      next();
     })
     .catch(err => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 app.get('/questions/:cat', (req, res, next) => {
   let cat = req.params.cat;
@@ -39,12 +38,12 @@ app.get('/questions/:cat', (req, res, next) => {
     }).limit(responseLimit)
     .then(questions => {
       res.status(200).send(questions);
-      next()
+      next();
     })
     .catch(err => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 app.get('/random', (req, res, next) => {
   Question.aggregate({
@@ -54,35 +53,35 @@ app.get('/random', (req, res, next) => {
     })
     .then(questions => {
       res.status(200).send(questions);
-      next()
+      next();
     })
     .catch(err => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 app.get('/count', (req, res, next) => {
   Question.count()
     .then(count => {
       // res.status(200).send(count);
       res.sendStatus(200, count);
-      next()
+      next();
     })
     .catch(err => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 app.get('/categories', (req, res, next) => {
   Question.distinct('category')
     .then(cats => {
       res.status(200).send(cats);
-      next()
+      next();
     })
     .catch(err => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 app.get('/category-count', (req, res, next) => {
   var catNames = [];
@@ -96,24 +95,24 @@ app.get('/category-count', (req, res, next) => {
         }).count();
       }
       Promise.all(catCount).then(responses => {
-        res.status(200).send(responses)
-        next()
-      })
+        res.status(200).send(responses);
+        next();
+      });
     })
     .catch(err => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 app.post('/post', (req, res, next) => {
-  let data = req.body;
+  // let data = req.body; <remove>
   Question.create(req.body).then(data => {
       res.status(201).json(req.body);
     })
     .catch(err => {
       res.status(500, err);
     });
-})
+});
 
 app.post('/:id', (req, res, next) => {
   Question.findByIdAndUpdate(req.params.id, req.body).then(questions => {
@@ -123,7 +122,7 @@ app.post('/:id', (req, res, next) => {
     .catch(err => {
       res.status(500).send(err);
     });
-})
+});
 
 app.delete('/:id', (req, res, next) => {
   var id = req.params.id;
@@ -133,8 +132,8 @@ app.delete('/:id', (req, res, next) => {
     })
     .catch(err => {
       res.status(500).send(err);
-    })
-})
+    });
+});
 
 function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
@@ -159,31 +158,30 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
 
 function closeServer() {
   return new Promise((resolve, reject) => {
-    console.log('Closing server')
+    console.log('Closing server');
     server.close(err => {
       if (err) {
-        reject(err)
-        // so we don't also call `resolve()`
-        return
+        reject(err);
+        return;
       }
-      resolve()
-    })
-  })
+      resolve();
+    });
+  });
 }
 
 process.on('SIGINT', function() {
-  console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+  console.log("\nSIGINT (Ctrl-C) received, gracefully shutting down");
   mongoose.disconnect();
   closeServer();
   process.exit();
-})
+});
 
 if (require.main === module) {
-  runServer().catch(err => console.error(err))
+  runServer().catch(err => console.error(err));
 }
 
 module.exports = {
   app,
   runServer,
   closeServer
-}
+};

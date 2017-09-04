@@ -1,4 +1,3 @@
-const QUESTIONS_ENDPOINT = '/questions';
 const QUESTIONS_CATEGORY_ENDPOINT = '/questions/';
 const QUESTIONS_RANDOM_ENDPOINT = '/random';
 const QUESTIONS_DELETE_ENDPOINT = '/';
@@ -119,7 +118,7 @@ function formatAndAdd(target) {
 
   if (!target[0].value || !target[1].value || !target[2].value) {
     var text = "<strong>The question, answer and category fields cannot be blank. Please correct and resubmit.</strong>";
-    var failure = document.getElementById("failClip").play();
+    document.getElementById("failClip").play();
     $('.modal-body-add').append(text);
     $('#add-editor').modal();
     return;
@@ -129,7 +128,7 @@ function formatAndAdd(target) {
     "answer": target[1].value.trim(),
     "category": target[2].value.trim(),
     "rating": target[3].value.trim()
-  }
+  };
   var strAdd = JSON.stringify(addQuestion);
   $.ajax({
     url: QUESTION_CREATE_ENDPOINT,
@@ -138,15 +137,14 @@ function formatAndAdd(target) {
     contentType: 'application/json',
     data: strAdd,
     success: function(result) {
-      var text = '';
       questionsArray = [];
       $('.modal-body-add').find('textarea,input').val('');
       $('#addId').get(0).reset();
       $('#add-editor').modal('hide');
-      var success = document.getElementById("successClip").play();
+      document.getElementById("successClip").play();
       $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
     }
-  })
+  });
 }
 
 function formatAndPost(mongoId, target) {
@@ -161,11 +159,11 @@ function formatAndPost(mongoId, target) {
   var anTrimmed = target[1].value.trim();
   var catTrimmed = target[2].value.trim();
 
-  if (quTrimmed == '' ||
-    anTrimmed == '' ||
-    catTrimmed == '') {
+  if (quTrimmed === '' ||
+    anTrimmed === '' ||
+    catTrimmed === '') {
     var text = "The question, answer and category fields are required. <br>Please correct and resubmit.";
-    var failure = document.getElementById("failClip").play();
+    document.getElementById("failClip").play();
     $('.modal-title').html(text);
     return;
   }
@@ -187,12 +185,12 @@ function formatAndPost(mongoId, target) {
       var text = '';
       $('.modal-body').find('textarea,input').val('');
       $('#editor').modal('hide');
-      var success = document.getElementById("successClip").play();
+      document.getElementById("successClip").play();
       $('.main').html(text);
       $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
     }
   });
-};
+}
 
 
 $(function() {
@@ -207,27 +205,27 @@ $(function() {
 
   $(".nav").on('click', event => {
     event.preventDefault();
-    var notification = document.getElementById("noticeClip").play();
+    document.getElementById("noticeClip").play();
     $.getJSON(QUESTIONS_CATEGORY_ENDPOINT +
       categoryArray[event.target.id],
       displayQuestions);
-  })
+  });
 
   // Register an event handler for the add button
 
   $('.add-area').on('click', event => {
     event.preventDefault();
-    var notification = document.getElementById("noticeClip").play();
+    document.getElementById("noticeClip").play();
     $('#add-editor').modal();
-  })
+  });
 
   //  Register an event handler for the random button
 
   $('.random-area').on('click', event => {
     event.preventDefault();
-    var notification = document.getElementById("noticeClip").play();
+    document.getElementById("noticeClip").play();
     $.getJSON(QUESTIONS_RANDOM_ENDPOINT, displayQuestions);
-  })
+  });
 
   // Register event handler for clicking on a
   // question's delete button
@@ -238,13 +236,13 @@ $(function() {
       url: QUESTIONS_DELETE_ENDPOINT + questionsArray[event.target.id]._id,
       type: 'DELETE',
       success: function(result) {
-        var success = document.getElementById("successClip").play();
+        document.getElementById("successClip").play();
         $.getJSON(CATEGORIES_ENDPOINT, displayCategories);
         var text = '';
         $('.main').html(text);
       }
     });
-  })
+  });
 
   //  Register event hander for clicking on a
   //  question's edit button
@@ -273,4 +271,4 @@ $(function() {
     formatAndPost(mongoNumber, event.target);
   });
 
-})
+});
