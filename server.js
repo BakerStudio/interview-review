@@ -143,7 +143,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
         return reject(err);
       }
       console.log(`Database open using ${DATABASE_URL}`);
-      app.listen(port, () => {
+      server = app.listen(port, () => {
           console.log(`App is listening on port ${port}`);
           resolve();
         })
@@ -158,7 +158,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
 function closeServer() {
   return new Promise((resolve, reject) => {
     console.log('Closing server');
-    close(err => {
+    server.close(err => {
       if (err) {
         reject(err);
         return;
