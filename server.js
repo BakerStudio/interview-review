@@ -104,8 +104,7 @@ app.get('/category-count', (req, res, next) => {
     });
 });
 
-app.post('/post', (req, res, next) => {
-  // let data = req.body; <remove>
+app.post('/post', (req, res) => {
   Question.create(req.body).then(data => {
       res.status(201).json(req.body);
     })
@@ -144,7 +143,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
         return reject(err);
       }
       console.log(`Database open using ${DATABASE_URL}`);
-      server = app.listen(port, () => {
+      app.listen(port, () => {
           console.log(`App is listening on port ${port}`);
           resolve();
         })
@@ -159,7 +158,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
 function closeServer() {
   return new Promise((resolve, reject) => {
     console.log('Closing server');
-    server.close(err => {
+    close(err => {
       if (err) {
         reject(err);
         return;

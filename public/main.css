@@ -112,6 +112,16 @@ div.question-box:hover {
   /* lightgray */
 }
 
+.question-box p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.question-box li {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .form-group {
   margin-top: 15px;
 }
