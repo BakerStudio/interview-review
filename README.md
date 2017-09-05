@@ -1,6 +1,17 @@
 ## Interview Review
 
-This project displays questions and answers that are anticipated during the technical Q&A portion of an inteview, allowing a candidate to practice.
+This project displays question sets that are anticipated during the technical Q&A portion of a web-developer's interview. It allows the job candidate to practice questions that may be asked. The candidate can select from a category of questions or review a random set of questions. The candidate may also update an existing question or delete a question.
+
+### Screen Shots
+
+1. Initial screen - select an action (add, random list, category) from the column ![Select an action](screenshots/1-init-screen.png)
+
+2. Question sets displayed ![Questions displayed](screenshots/2-display-questions.png)
+
+3. Edit the fields of a question ![Edit question](screenshots/3-edit-question.png)
+
+
+### Deployment notes
 
 Note: this server uses an environment variable to point to the database's location.
 To add the env variable in the development enviroment:
@@ -8,6 +19,7 @@ To add the env variable in the development enviroment:
 - Add this line:
 export DATABASE_URL=mongodb://localhost:27017/interview
 - reset the terminal window: source .profile
+
 For the Travis and Heroku environments:
 - Each system has their own environment configuration setting
 - Set DATABASE_URL to 'mongodb://dbuser:dbpass@ds149437.mlab.com:49437/interview'
