@@ -1,10 +1,10 @@
-## Interview Review
+# Interview Review
 
-This project displays question sets that are anticipated during the technical Q&A portion of a web-developer's interview. It allows the job candidate to practice questions that may be asked. The candidate can select from a category of questions or review a random set of questions. The candidate may also update an existing question or delete a question.
+This project displays question sets that are anticipated during the technical Q&A portion of a web-developer's interview. It allows the job candidate to practice questions that may be asked. The candidate can select from a category of questions or review a random set of questions. The candidate may also add a new question, update an existing question or delete a question.
 
 ### Screen Shots
 
-1. Initial screen - select an action (add, random list, category) from the column ![Select an action](screenshots/1-init-screen.png)
+1. Initial screen - select an action (add, random list, category) from the column ![Select an action](screenshots/1-initial-screen.png)
 
 2. Question sets displayed ![Questions displayed](screenshots/2-display-questions.png)
 
@@ -14,22 +14,34 @@ This project displays question sets that are anticipated during the technical Q&
 ### Deployment notes
 
 Note: this server uses an environment variable to point to the database's location.
-To add the env variable in the development enviroment:
-- Open the texteditor, "open .profile"
-- Add this line:
-export DATABASE_URL=mongodb://localhost:27017/interview
-- reset the terminal window: source .profile
+To add the environment variable in the development enviroment:
+- In a terminal window, open .profile and add this line:
+"export DATABASE_URL=mongodb://localhost:27017/interview"
+- Close the terminal window and check the value: "echo $DATABASE_URL"
 
 For the Travis and Heroku environments:
 - Each system has their own environment configuration setting
-- Set DATABASE_URL to 'mongodb://dbuser:dbpass@ds149437.mlab.com:49437/interview'
+- Configure DATABASE_URL to 'mongodb://dbuser:dbpass@ds149437.mlab.com:49437/interview'
 
 For this project:
 - Code is located on GitHub at https://github.com/BakerStudio/interview-review
 - Travis tests are executed locally with 'npm test'
 - CI tests are executed on Travis
 - Mongo database is deployed on mLab
-- App is deployed to https://gentle-island-84200.herokuapp.com/
+- App is deployed to Heroku at https://gentle-island-84200.herokuapp.com/
+
+### Technologies Used
+
+This project utilizes:
+- Node.js - event-driven, non-blocking I/O server framework
+- jQuery with Ajax - Javascript library for asynchronous web applications
+- MongoDB - a non-SQL database
+- mongoose - object modeling for MongoDB
+- mLab - database-as-a-service for MongoDB
+- Travis CI - continuous integration testing
+- Heroku - platform-as-a-service for the web app
+- GitHub - code source repository with version control
+- HTML and CSS
 
 ### API Documentation
 
