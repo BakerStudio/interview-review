@@ -142,7 +142,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
       if (err) {
         return reject(err);
       }
-      console.log(`Database open using ${DATABASE_URL}`);
+      console.log(`Database open at location ${DATABASE_URL}`);
       server = app.listen(port, () => {
           console.log(`App is listening on port ${port}`);
           resolve();

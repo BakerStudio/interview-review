@@ -1,7 +1,20 @@
 ## Interview Review
 
+This project displays questions and answers that are anticipated during the technical Q&A portion of an inteview, allowing a candidate to practice.
 
+Note: this server uses an environment variable to point to the database's location.
+To add the env variable in the development enviroment:
+- Open the texteditor, "open .profile"
+- Add this line:
+export DATABASE_URL=mongodb://localhost:27017/interview
+- reset the terminal window: source .profile
+For the Travis and Heroku environments:
+- Each system has their own environment configuration setting
+- Set DATABASE_URL to 'mongodb://dbuser:dbpass@ds149437.mlab.com:49437/interview'
 
+For this project:
+- Code is located on GitHub at https://github.com/BakerStudio/interview-review
+- Travis tests are executed locally with 'npm test'
 - CI tests are executed on Travis
 - Mongo database is deployed on mLab
 - App is deployed to https://gentle-island-84200.herokuapp.com/
