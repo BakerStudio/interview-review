@@ -1,14 +1,17 @@
 # Interview Review
 
-This project displays question sets that are anticipated during the technical Q&A portion of a web-developer's interview. It allows the job candidate to practice questions that may be asked. The candidate can select from a category of questions or review a random set of questions. The candidate may also add a new question, update an existing question or delete a question.
+This project displays question sets that can be anticipated during the technical Q&A portion of a web-developer's interview. It allows the job candidate to practice questions that may be asked. The candidate can select from a category of questions or review a random set of questions. The candidate may also add a new question, update an existing question or delete a question.
 
 ### Screen Shots
 
-1. Initial screen - select an action (add, random list, category) from the column ![Select an action](screenshots/1-initial-screen.png)
+1. Initial screen - select an action (add, random list, category) from the right-hand column
+![Select an action](screenshots/1-initial-screen.png)
 
-2. Question sets displayed ![Questions displayed](screenshots/2-display-questions.png)
+2. Question sets displayed
+![Questions displayed](screenshots/2-display-questions.png)
 
-3. Edit the fields of a question ![Edit question](screenshots/3-edit-question.png)
+3. Edit the fields of a question
+![Edit question](screenshots/3-edit-question.png)
 
 
 ### Deployment notes
@@ -33,14 +36,17 @@ For this project:
 ### Technologies Used
 
 This project utilizes:
-- Node.js - event-driven, non-blocking I/O server framework
+- Node.js - Event-driven, non-blocking I/O server framework
+- Express - Web framework with HTTP utility methods
+- Promise - An object representing the completion or failure of an asynchronous operation
 - jQuery with Ajax - Javascript library for asynchronous web applications
-- MongoDB - a non-SQL database
-- mongoose - object modeling for MongoDB
-- mLab - database-as-a-service for MongoDB
-- Travis CI - continuous integration testing
-- Heroku - platform-as-a-service for the web app
-- GitHub - code source repository with version control
+- MongoDB - A non-SQL database
+- mongoose - Object modeling for MongoDB
+- mLab - Database-as-a-service for MongoDB
+- Travis CI - Continuous integration testing
+- Heroku - Platform-as-a-service for the web app
+- GitHub - Code source repository with version control
+- Morgan - HTTP logger middleware
 - HTML and CSS
 
 ### API Documentation
